@@ -1,0 +1,127 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 11;
+    padding: 0;
+    background: #546E7A;
+}
+
+@media (max-width: 767.98px) {
+    .sidebar {
+        //top: 5rem;
+    }
+}
+
+.sidebar-header {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #455A64;
+}
+
+.sidebar-sticky {
+    height: calc(100vh - 48px);
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.sidebar .nav-item{
+    width: 100%;
+    padding: 0 1px 0 15px;
+    display: flex;
+    align-items: center;
+
+    .icon {
+        display: inline-block;
+        width: 24px !important;
+        height: 24px !important;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 22px 22px;
+        cursor: pointer;
+    }
+
+    .icon-dashboard {
+        background-image: url("../../assets/images/sidebar/dashboard.svg");
+    }
+    .icon-books {
+        background-image: url("../../assets/images/sidebar/books.svg");
+    }
+    .icon-authors {
+        background-image: url("../../assets/images/sidebar/author.svg");
+    }
+    .icon-publishers {
+        background-image: url("../../assets/images/sidebar/publishers.svg");
+    }
+
+    .icon-categories {
+        background-image: url("../../assets/images/sidebar/categories.svg");
+    }
+    .icon-cover-types {
+        background-image: url("../../assets/images/sidebar/cover-types.svg");
+    }
+    .icon-labels {
+        background-image: url("../../assets/images/sidebar/labels.svg");
+    }
+    .icon-users {
+        background-image: url("../../assets/images/sidebar/users.svg");
+    }
+    .icon-images {
+        background-image: url("../../assets/images/sidebar/images.svg");
+    }
+    .icon-system-settings {
+        background-image: url("../../assets/images/sidebar/settings.svg");
+    }
+
+    .nav-link {
+        color: #ECEFF1;
+        flex: 1;
+        font-size: 1.3em;
+    }
+
+    .nav-link.active {
+        //color: #9aaccb;
+        color: #B0BEC5;
+        border-right: 3px solid #B0BEC5 !important;
+    }
+}
+
+.sidebar-heading {
+    font-size: .75rem
+}
+
+/*
+ * Navbar
+ */
+
+.navbar-brand {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    background-color: rgba(0, 0, 0, .25);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+.navbar .navbar-toggler {
+    top: .25rem;
+    right: 1rem;
+}
+
+.navbar .form-control {
+    padding: .75rem 1rem;
+}
+
+.form-control-dark {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
+}
+
+.form-control-dark:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}

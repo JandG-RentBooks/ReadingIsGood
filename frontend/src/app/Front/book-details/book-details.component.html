@@ -1,0 +1,61 @@
+<div class="front-details">
+    <div class="inner">
+        <div class="header mb-2">
+            <span class="d-inline-block"></span>
+            <span class="close" (click)="close()"></span>
+        </div>
+        <div class="content">
+            <div class="top">
+                <div class="image d-none d-sm-block" [style]="imagePath ?'background-image:url('+imageUrl+imagePath+')' : ''"></div>
+                <div class="data ms-3">
+                    <span class="title mb-2">{{selectedItem.title}}</span>
+                    <span class="author">{{selectedItem.authors}}</span>
+                    <table class="table mt-3">
+                        <tbody>
+                        <tr>
+                            <th>Kiadó:</th>
+                            <td>{{selectedItem.publisher}}</td>
+                        </tr>
+                        <tr>
+                            <th>Kiadás éve:</th>
+                            <td>{{selectedItem.published}}</td>
+                        </tr>
+                        <tr>
+                            <th>Nyelv:</th>
+                            <td>{{selectedItem.language_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Oldalak száma:</th>
+                            <td>{{selectedItem.number_of_page}}</td>
+                        </tr>
+                        <tr>
+                            <th>Borító:</th>
+                            <td>{{selectedItem.cover_type_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>ISBN:</th>
+                            <td>{{selectedItem.isbn_code}}</td>
+                        </tr>
+                        <tr>
+                            <th>Kategóriák:</th>
+                            <td>
+                                <button class="label m-1" *ngFor="let item of categories"
+                                        mat-stroked-button>{{item}}</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Cimkék:</th>
+                            <td>
+                                <button class="label m-1" *ngFor="let item of labels"
+                                        mat-stroked-button>{{item}}</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="description">{{selectedItem.description}}</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<app-header></app-header>
+
+<div *ngIf="isAdmin" class="container-fluid position-relative">
+    <div class="row">
+        <app-sidebar></app-sidebar>
+
+        <div class="col-md-9 ms-sm-auto col-lg-10 px-md-0">
+            <div class="admin-wrapper">
+                <div id="postCover" class="d-none"></div>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+    <app-form-toast></app-form-toast>
+</div>
+
+<div *ngIf="!isAdmin" class="container-fluid m-0 p-0 position-relative">
+    <router-outlet></router-outlet>
+    <div id="uiCover" class="d-none"></div>
+</div>
+<app-footer></app-footer>

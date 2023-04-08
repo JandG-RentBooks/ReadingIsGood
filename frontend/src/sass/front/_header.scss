@@ -1,0 +1,70 @@
+@import '../variables';
+
+.front-header {
+    width: 100%;
+    background-color: #3e5064;
+
+    .front-header-container{
+        display: flex;
+        .__logo {
+            width: 200px;
+            height: 120px;
+            background-color: #273749;
+        }
+        .__logo-md  {
+            width: 100%;
+            height: 60px;
+            background-color: #78a3d9;
+        }
+
+        .__menu {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            .__menu-top {
+                display: flex;
+                height: 50px;
+                align-items: center;
+                justify-content: flex-end;
+                a {
+                    color: white;
+                    font-size: .9em;
+                    text-decoration: none;
+                }
+                a.dropdown-toggle {
+                    color: white;
+                    font-size: 1em;
+                    text-decoration: none;
+                }
+                .user-icon {
+                    font-size: 20px;
+                }
+                .dropdown-menu {
+                    background: #273749;
+                    .dropdown-item:hover{
+                        background: #3d5570;
+                    }
+                    .dropdown-divider{
+                        border-top: 1px solid #3d5570;
+                    }
+                }
+            }
+            .__menu-bottom {
+                nav {
+                    .nav-link {
+                        color: white;
+                        font-size: 1.3em;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .front-header-container {
+            flex-direction: column;
+        }
+    }
+
+}

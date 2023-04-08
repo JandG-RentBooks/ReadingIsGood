@@ -1,0 +1,129 @@
+@import 'variables';
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: $font-color-dark !important;
+}
+
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+a:active,
+a:focus,
+.btn:active,
+.btn.active {
+  outline: 0 !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+}
+
+*:focus {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+/**
+Forms
+ */
+input:focus {
+  background-color: $primary-hover;
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-bottom: 1px solid $font-color-dark !important;
+}
+
+._form-group-admin {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+._form-group-admin label {
+  font-size: 14px;
+  color: $font-color-light;
+}
+
+._form-group-admin input[type="text"],
+._form-group-admin input[type="password"],
+._form-group-admin input[type="email"],
+._form-group-admin input[type="number"],
+._form-group-admin input[type="date"],
+._form-group-admin textarea,
+._form-group-admin .custom-select2 {
+  font-size: 18px;
+  font-weight: 400;
+  color: $font-color-mid;
+  border: none;
+  border-bottom: 1px solid $font-color-dark;
+  background: white;
+  border-radius: 0;
+  text-indent: 0;
+  padding-left: 6px;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 28px;
+  min-height: 28px !important;
+}
+
+._form-group-admin textarea {
+  height: auto !important;
+}
+
+._form-group-admin input:focus {
+  background-color: $primary-hover-light;
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-bottom: 1px solid $font-color-dark;
+}
+
+._form-group-admin button[type=submit],
+._form-group-admin button[type=button] {
+  background: $primary-button;
+  width: 100%;
+  max-width: 300px;
+  height: 36px;
+  line-height: 36px;
+  padding: 0;
+  text-align: center;
+  border: none;
+  border-radius: 3px;
+  margin: 0 auto 10px;
+  text-transform: uppercase;
+  font-max-size: 18px;
+}
+
+.form-check-input:checked[type=checkbox] {
+  background-image: url('../assets/images/checkbox.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 9px 8px;
+}
+
+.form-check-input {
+  width: 16px;
+  height: 16px;
+  margin-top: 0;
+  background-color: transparent;
+  border: 1px solid $font-color-dark;
+}
+
+.form-check-input:checked {
+  background-color: transparent;
+  border: 1px solid $font-color-dark;
+}
+
+input[type=checkbox], input[type=radio] {
+  min-height: auto;
+  border: 1px solid $font-color-dark;
+}

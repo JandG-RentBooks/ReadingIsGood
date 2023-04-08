@@ -1,0 +1,73 @@
+<div class="container front-container d-flex align-items-center justify-content-center">
+    <div class="card card-container-login m-5 p-3">
+        <div class="card-header">Regisztráció</div>
+        <div class="card-body">
+            <form [formGroup]="form" class="d-flex flex-column" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="fill">
+                    <mat-label>Felhasználónév</mat-label>
+                    <input matInput formControlName="username" type="text">
+                    <mat-error *ngIf="form.controls['username'].hasError('required')">A felhasználónév megadása kötelező.</mat-error>
+                    <mat-error *ngIf="form.controls['username'].hasError('minlength')">A felhasználónév legalább 3 karakter.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Név</mat-label>
+                    <input matInput formControlName="name" type="text">
+                    <mat-error *ngIf="form.controls['name'].hasError('required')">A név megadása kötelező.</mat-error>
+                    <mat-error *ngIf="form.controls['name'].hasError('minlength')">A név legalább 3 karakter.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Email cím</mat-label>
+                    <input matInput formControlName="email" type="email">
+                    <mat-error *ngIf="form.controls['email'].hasError('required')">Az email cím megadása kötelező.</mat-error>
+                    <mat-error *ngIf="form.controls['email'].hasError('email')">Érvényes email cím megadása kötelező.</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Cím</mat-label>
+                    <input matInput formControlName="address" type="text">
+                    <mat-error *ngIf="form.controls['address'].hasError('required')">A cím megadása kötelező.</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Telefon</mat-label>
+                    <input matInput formControlName="phone_number" type="text">
+<!--                    <mat-error *ngIf="form.controls['phone_number'].hasError('required')">A telefonszám megadása kötelező.</mat-error>-->
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="mt-2">
+                    <mat-label>Jelszó</mat-label>
+                    <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+                    <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="form.controls['password'].hasError('required')">A jelszó megadása kötelező.</mat-error>
+                    <mat-error *ngIf="form.controls['password'].hasError('minlength')">Az érvényes jelszó legalább 8 karakter.</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="mt-2">
+                    <mat-label>Jelszó megerősítése</mat-label>
+                    <input matInput formControlName="c_password" [type]="hide ? 'password' : 'text'">
+                    <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="form.controls['c_password'].hasError('required')">A jelszó ismételt megadása kötelező.</mat-error>
+                    <mat-error *ngIf="form.controls['c_password'].hasError('minlength')">Az érvényes jelszó legalább 8 karakter.</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="mt-2">
+                    <mat-label>Előfizetés típusa</mat-label>
+                    <mat-select formControlName="subscription_type_id">
+                        <mat-option *ngFor="let type of subscriptionTypeList" [value]="type.id">
+                            {{type.description}} / {{type.price}}._
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div *ngIf="isMessage" class="__message">Sikeres regisztráció</div>
+                <button type="submit" class="btn-login mt-3">
+                    Regisztráció
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<app-error-modal></app-error-modal>

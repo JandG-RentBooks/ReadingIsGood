@@ -1,0 +1,71 @@
+._references {
+    .icon-new-reference {
+        font-size: 1.5em;
+    }
+    .reference-items {
+        ._item {
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+
+            ._header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-bottom: 1px solid #cfd8dc;
+                padding-bottom: 10px;
+                margin-bottom: 12px;
+                .name {
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: #3e5064;
+                    .date{
+                        font-size: 14px;
+                        font-style: italic;
+                        color: #3e5064;
+                        opacity: .6;
+                    }
+                }
+                .rate {
+                    color: #ffa726;
+                }
+            }
+
+            ._content {
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+                color: #455a64;
+                .bi-quote {
+                    display: inline-block;
+                    font-size: 2.5em;
+                    opacity: .6;
+                    margin-right: 12px;
+                }
+            }
+        }
+    }
+    .__pagination {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        //background-color: white;
+
+        div.left {
+            display: inline-flex;
+            align-items: center;
+            width: auto;
+            font-weight: 400;
+            font-size: 14px;
+        }
+
+        div.pager-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: auto;
+            flex: 1;
+        }
+    }
+}

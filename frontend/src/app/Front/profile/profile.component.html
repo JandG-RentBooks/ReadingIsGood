@@ -1,0 +1,26 @@
+<div class="container-fluid m-0 p-0 bg-white">
+<div class="container front-container py-5 _profile">
+    <div class="row">
+        <div class="function-list col-lg-3 mb-3">
+            <div class="list-group">
+                <button (click)="setVisibility('showWishList', $event)" type="button" class="list-group-item list-group-item-action active" aria-current="true">
+                    Kívánságlista
+                </button>
+                <button (click)="setVisibility('showCurrentRent', $event)" type="button" class="list-group-item list-group-item-action">Aktuális kölcsönzésem</button>
+                <button (click)="setVisibility('showRentHistory', $event)" type="button" class="list-group-item list-group-item-action">Kölcsönzés történet</button>
+                <button (click)="setVisibility('showSubscriptionInformation', $event)" type="button" class="list-group-item list-group-item-action">Előfizetési információk</button>
+                <button (click)="setVisibility('showData', $event)" type="button" class="list-group-item list-group-item-action">Személyes adataim</button>
+                <button (click)="setVisibility('showAddresses', $event)" type="button" class="list-group-item list-group-item-action">Szállítási címek</button>
+            </div>
+        </div>
+        <div class="action-container col-lg-9">
+            <app-wish-list *ngIf="visibilityOptions.showWishList"></app-wish-list>
+            <app-my-rents *ngIf="visibilityOptions.showRentHistory"></app-my-rents>
+            <app-my-data *ngIf="visibilityOptions.showData"></app-my-data>
+            <app-my-current-rent *ngIf="visibilityOptions.showCurrentRent"></app-my-current-rent>
+            <app-subscription-information *ngIf="visibilityOptions.showSubscriptionInformation"></app-subscription-information>
+            <app-addresses *ngIf="visibilityOptions.showAddresses"></app-addresses>
+        </div>
+    </div>
+</div>
+</div>

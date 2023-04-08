@@ -1,0 +1,58 @@
+<div class="row _pages">
+    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+        <mat-card>
+            <mat-card-content (click)="setReference('how-lending')">
+                <div class="_title">Kölcsönzés menete oldal</div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+        <mat-card>
+            <mat-card-content (click)="setReference('references')">
+                <div class="_title">Referenciák oldal - figyelmeztetés</div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+        <mat-card>
+            <mat-card-content (click)="setReference('subscription')">
+                <div class="_title">Előfizetés oldal</div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+        <mat-card>
+            <mat-card-content (click)="setReference('faq')">
+                <div class="_title">Gyik oldal</div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+        <mat-card>
+            <mat-card-content (click)="setReference('about-as')">
+                <div class="_title">Rólunk oldal</div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div *ngIf="showSuccessMessage" class="_alert d-flex w-100 align-items-center justify-content-between p-3 mt-4">
+        Az oldal tartalma sikeresen módosítva. <mat-icon color="accent" role="button" (click)="showSuccessMessage = false">close</mat-icon>
+    </div>
+
+        <div *ngIf="reference !== ''" class="mt-4">
+            <div class="d-flex justify-content-end mb-3">
+                <button (click)="updatePageContent()" mat-raised-button color="primary" class="text-white mx-2">Tartalom módosítása</button>
+            </div>
+            <div class="NgxEditor__Wrapper h-100">
+                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+                <form [formGroup]="form">
+                    <ngx-editor [editor]="editor" [ngModel]="pageContent" formControlName="pageContent"></ngx-editor>
+                </form>
+            </div>
+        </div>
+
+</div>

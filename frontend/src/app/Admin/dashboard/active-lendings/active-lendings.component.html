@@ -1,0 +1,58 @@
+
+<app-active-lendings-details *ngIf="showDetailsComponent" [selectedItem]="selectedItem"
+                    (closeEventEmitter)="closeDetails($event)"></app-active-lendings-details>
+<table class="table table-striped admin-table mt-4">
+    <thead>
+    <tr class="brd">
+        <th>ID</th>
+        <th>Szállítási azonosító</th>
+        <th>Név</th>
+        <th>Szállítási cím</th>
+        <th>Fizetési azonosító</th>
+        <th>Fizetés dátuma</th>
+        <th>Létrehozta</th>
+        <th class="text-center w-10"></th>
+    </tr>
+    <tr class="spacer"></tr>
+    </thead>
+
+    <tbody class="bg-white-">
+    <tr *ngIf="mainCollection.length === 0">
+        <td colspan="8">Nincs megjelíthető tétel</td>
+    </tr>
+    <tr *ngFor="let row of mainCollection">
+        <td>{{ row.id }}</td>
+        <td>{{ row.shipping_token }}</td>
+        <td>{{ row.user?.name }}</td>
+        <td>{{ row.user?.active_shipping_address.zip_code }} {{ row.user?.active_shipping_address.city }}, {{ row.user?.active_shipping_address.address }}</td>
+        <td>{{ row.user?.payment_id }}</td>
+        <td>{{ row.user?.last_payment_date.substring(0, 10) }}</td>
+        <td>{{ row.created_by?.name }}</td>
+
+
+        <td class="text-center">
+                <span class="btn-action table-btn-open d-inline-block" matTooltip="Részletek megtekintése"
+                      matTooltipPosition="left" matTooltipClass="" (click)="openDetails(row.id, row.shipping_token)"></span>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+<div class="sticky-footer">
+    <div class="left-side"></div>
+    <div class="right-side">
+        <div class="left">
+            <span class="me-2 __text">Megjelenítve: </span>
+            <span>
+                    <select [(ngModel)]="params.perPage" (ngModelChange)="perPageOnChange($event)" class="form-select">
+                        <option *ngFor="let page of params.pages">{{page}}</option>
+                    </select>
+                </span>
+            <span *ngIf="total !== null" class="ms-3 __total">Össz: {{ total }}</span>
+        </div>
+        <div class="pager-container">
+            <app-pagination [links]="links" (paginateEventEmitter)="paginate($event)"></app-pagination>
+        </div>
+    </div>
+</div>

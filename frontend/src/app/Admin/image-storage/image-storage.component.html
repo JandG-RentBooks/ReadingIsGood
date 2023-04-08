@@ -1,0 +1,100 @@
+<div class="sticky-filter">
+    <div class="inner justify-content-between">
+        <span class="action d-inline-flex align-items-center">
+            <span class="d-inline-block d-flex justify-content-end align-items-center"></span>
+        </span>
+        <span class="d-inline-block d-flex justify-content-end align-items-center">
+                <div class="search">
+                    <span (click)="search()" class="btn-search d-inline-block"></span>
+                    <input [(ngModel)]="params.searchValue" (keyup.enter)="search()" type="text"
+                           placeholder="Keresés...">
+                    <span *ngIf="isSearch" (click)="searchReset()" class="btn-reset d-inline-block"></span>
+                </div>
+        </span>
+    </div>
+    <div class="sticky-filter-cover d-none"></div>
+</div>
+
+<div id="cover" class="d-none"></div>
+
+<app-error-modal></app-error-modal>
+<app-delete-modal [name]="selectedItem?.name" (deleteEventEmitter)="destroy($event)" (closeEventEmitter)="closeDeleteModal()"></app-delete-modal>
+
+<div class="admin-container pt-3">
+    <div class="action-panel p-3 pb-5">
+        <mat-accordion class="example-headers-align">
+            <mat-expansion-panel #imageUploadPanel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-toolbar class="bg-transparent" color="primary">
+                            <mat-icon color="accent" class="me-2">image</mat-icon>
+                            <span>Új kép feltöltése</span>
+                        </mat-toolbar>
+                    </mat-panel-title>
+
+                </mat-expansion-panel-header>
+
+                <input type="file" class="file-input"
+                       (change)="onFileSelected($event)" #fileUploadInput>
+
+                <div class="__file-upload d-flex align-items-start">
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Kép elnevezése</mat-label>
+                        <input matInput [(ngModel)]="name" type="text">
+                    </mat-form-field>
+                    <span class="d-flex align-items-center ms-3">
+                        {{fileName || "Fájl tallózása..."}}
+                        <button mat-mini-fab color="accent" class="upload-btn ms-2"
+                                (click)="fileUploadInput.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                    <button *ngIf="fileName" type="button"
+                            (click)="upload()"
+                            class="ms-3 px-2 text-white"
+                            mat-raised-button color="primary">Feltöltés</button>
+                    </span>
+                </div>
+
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <div class="row mt-5 __image-storage">
+            <div *ngFor="let image of mainCollection" class="col-md-2 mb-3">
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <mat-card-title><span class="mat-card-title">{{image.name}}</span></mat-card-title>
+                        <mat-card-subtitle><span class="mat-card-subtitle">{{image.file_name | truncate:25}}</span></mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image [src]="imageUrl+image.path" alt="" class="mat-card-image">
+                    <mat-card-content>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <span class="d-flex w-100 align-items-center justify-content-between">
+                            {{math.round(image.file_size / 1024)}} KB
+                            <mat-icon (click)="openDeleteModal(image.id, image.name)" color="warn" role="button">delete</mat-icon>
+                        </span>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky-footer">
+        <div class="left-side"></div>
+        <div class="right-side">
+            <div class="left">
+                <span class="me-2 __text">Megjelenítve: </span>
+                <span>
+                    <select [(ngModel)]="params.perPage" (ngModelChange)="perPageOnChange($event)" class="form-select">
+                        <option *ngFor="let page of params.pages">{{page}}</option>
+                    </select>
+                </span>
+                <span *ngIf="total !== null" class="ms-3 __total">Össz: {{ total }}</span>
+            </div>
+            <div class="pager-container">
+                <app-pagination [links]="links" (paginateEventEmitter)="paginate($event)"></app-pagination>
+            </div>
+        </div>
+    </div>
+</div>

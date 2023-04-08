@@ -1,0 +1,21 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$admin-primary: mat.define-palette(mat.$orange-palette);
+$admin-accent: mat.define-palette(mat.$blue-gray-palette);
+
+// The "warn" palette is optional and defaults to red if not specified.
+$admin-warn: mat.define-palette(mat.$deep-orange-palette);
+
+$admin-theme: mat.define-light-theme((
+    color: (
+        primary: $admin-primary,
+        accent: $admin-accent,
+        warn: $admin-warn,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+));
+@include mat.core-theme($admin-theme);
+@include mat.all-component-themes($admin-theme);

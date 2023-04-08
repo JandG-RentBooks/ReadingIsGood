@@ -1,0 +1,36 @@
+<div class="front-details">
+    <div class="inner">
+        <div class="header mb-2">
+            <span class="title">Új hozzászólás létrehozása</span>
+            <span class="close" (click)="close()"></span>
+        </div>
+        <div class="content">
+            <div class="__reference-warning"></div>
+            <form [formGroup]="form" class="d-flex flex-column" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="fill">
+                    <mat-label>Hozzászólás</mat-label>
+                    <textarea matInput formControlName="description"></textarea>
+                    <mat-error *ngIf="form.controls['description'].hasError('required')">A hozzászólás megadása kötelező.
+                    </mat-error>
+                    <mat-error *ngIf="form.controls['description'].hasError('minlength')">A hozzászólás legalább 20 karakter.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Szolgáltatás értékelése</mat-label>
+                    <mat-select formControlName="rating" multiple (selectionChange)="setRating()">
+                        <mat-option *ngFor="let item of ratingList" [value]="item.key">
+                            {{item.value}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls['rating'].hasError('required')">Kötelező értékelni.
+                    </mat-error>
+                </mat-form-field>
+
+                <button type="submit" mat-raised-button color="primary"
+                        class="text-white mt-3">Hozzászólás mentése
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

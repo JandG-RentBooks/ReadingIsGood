@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+//@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+
+@import 'sass/variables';
+//@import 'sass/forms';
+@import 'sass/admin-table';
+@import 'sass/admin';
+@import 'sass/main';
+@import 'sass/front/header';
+@import 'sass/front/front-main';
+@import 'sass/front/index';
+@import 'sass/front/profile';
+@import 'sass/front/books';
+
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';

@@ -1,0 +1,244 @@
+@import 'variables';
+
+/**
+Admin
+ */
+
+.admin-table {
+    //z-index: 2;
+}
+
+.admin-table thead {
+    height: 36px;
+    color: white;
+    font-weight: 700;
+}
+
+.admin-table> :not(caption)>*>* {
+    padding: 0.5rem 0.5rem;
+    border-bottom-width: 0;
+    box-shadow: none;
+}
+
+.admin-table thead .brd th:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+.admin-table thead .brd th:last-child {
+    border-radius: 0 5px 5px 0;
+}
+
+.admin-table thead .brd-single th:last-child {
+    border-radius: 5px;
+}
+
+.admin-table thead .brd th,
+.admin-table thead .brd-single th {
+    //background-color: $primary-mid-hover;
+    background-color: #B0BEC5;
+}
+
+.admin-table thead tr.spacer {
+    height: 20px !important;
+}
+
+.admin-table thead th {
+    border-color: transparent !important;
+    font-size: 1.1em;
+}
+
+.admin-table tbody {
+    color: $primary-dark-active;
+    font-weight: 400;
+    font-size: 1em;
+    //border: 1px solid $primary-hover;
+}
+
+.admin-table tbody td {
+    height: 36px !important;
+}
+
+.table-striped>tbody>tr:nth-child(1n)>td,
+.table-striped>tbody>tr:nth-child(1n)>th {
+    background-color: #f7f7f7;
+}
+
+.table-striped>tbody>tr:nth-child(2n)>td,
+.table-striped>tbody>tr:nth-child(2n)>th {
+    background-color: #f7f7f7;
+}
+
+.admin-table tbody {
+    position: relative;
+    box-shadow: 0 0 0 1px $primary-hover;
+    border-radius: 10px;
+    //z-index: 2;
+}
+
+.admin-table tbody.bg-w::before {
+    content: '';
+    position: absolute;
+    background-color: white;
+    inset: 0;
+    z-index: 1;
+    border-radius: 10px;
+}
+
+.admin-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+.admin-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+.admin-table tbody tr:first-child td:first-child {
+    border-top-left-radius: 10px;
+}
+
+.admin-table tbody tr:first-child td:last-child {
+    border-top-right-radius: 10px;
+}
+
+.td-right {
+    text-align: right;
+}
+
+.admin-table-inner thead {
+    height: 36px;
+    background-color: $primary-hover;
+    color: $primary-dark-active;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.admin-table-inner> :not(caption)>*>* {
+    padding: 0.5rem 0.5rem;
+    border-bottom-width: 0;
+    box-shadow: none;
+}
+
+.admin-table-inner thead th:first-child {
+    border-radius: 0;
+}
+
+.admin-table-inner thead th:last-child {
+    border-radius: 0;
+}
+
+.admin-table-inner thead th {
+    border-color: transparent !important;
+}
+
+.admin-table-inner tbody {
+    color: $primary-dark-active;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.admin-table-inner tbody td {
+    height: 26px !important;
+}
+
+.btn-action {
+    width: 20px !important;
+    height: 20px !important;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 18px 18px;
+    cursor: pointer;
+}
+
+
+/**
+Table icons
+ */
+
+.table-btn-edit {
+    background-image: url("../assets/images/icons-V2/table-icons/edit.svg");
+    background-size: 20px 20px;
+}
+
+.table-btn-open {
+    background-image: url("../assets/images/icons-V2/table-icons/open.svg");
+}
+
+.table-btn-delete {
+    background-image: url("../assets/images/icons-V2/table-icons/delete.svg");
+}
+
+
+/**
+Pagination
+ */
+
+.pagination-sm .page-link {
+    padding: 0.25rem 0.5rem;
+    font-size: 14px;
+    font-weight: 700;
+    color: $primary-dark-active;
+    background-color: transparent !important;
+    border: none !important;
+    margin: 0 2px 0;
+}
+
+.pagination a {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.pagination a:hover {
+    border: none !important;
+    border-radius: 5px !important;
+    background-color: $primary-hover !important;
+    color: white;
+}
+
+.pagination a.current-page {
+    cursor: default;
+    border: 1px solid $primary-button !important;
+    border-radius: 5px !important;
+}
+
+.pagination a.current-page:hover {
+    color: $primary-dark-active !important;
+    background-color: transparent !important;
+}
+
+.pagination a.prev-active {
+    background-image: url("../assets/images/icons/actions/pagination-arrow-left.svg");
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 15px;
+}
+
+.pagination a.prev-inactive {
+    background-image: url("../assets/images/icons/actions/pagination-arrow-left-white.svg");
+    background-color: $primary-hover !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 15px;
+    cursor: default;
+}
+
+.pagination a.next-active {
+    background-image: url("../assets/images/icons/actions/pagination-arrow-right.svg");
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 15px;
+}
+
+.pagination a.next-inactive {
+    background-image: url("../assets/images/icons/actions/pagination-arrow-right-white.svg");
+    background-color: $primary-hover !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 15px;
+    cursor: default;
+}

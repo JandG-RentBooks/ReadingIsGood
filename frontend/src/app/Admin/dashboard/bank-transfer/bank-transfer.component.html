@@ -1,0 +1,104 @@
+<mat-accordion class="example-headers-align">
+    <mat-expansion-panel #searchPanel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-toolbar class="bg-transparent" color="primary">
+                    <mat-icon color="accent" class="me-2">supervisor_account</mat-icon>
+                    <span>Felhasználó keresése fizetési azonosító alapján</span>
+                </mat-toolbar>
+            </mat-panel-title>
+
+        </mat-expansion-panel-header>
+        <div class="__file-upload d-flex align-items-center">
+            <div class="dashboard-search">
+                <span (click)="search()" class="btn-search d-inline-block"></span>
+                <input [(ngModel)]="searchValue" (keyup.enter)="search()" type="text" placeholder="Fizetési azonosító">
+            </div>
+            <span class="d-flex align-items-center ms-3">
+                    <button type="button"
+                            [disabled]="searchValue.length !== 8"
+                            (click)="search()"
+                            class="ms-3 px-2 text-white"
+                            mat-raised-button color="primary">Keresés</button>
+            </span>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>
+
+<div *ngIf="showSuccessMessage" class="_alert d-flex w-100 align-items-center justify-content-between p-3 mt-4">
+    Az utalási tétel sikeresen beéllítva. <mat-icon color="accent" role="button" (click)="showSuccessMessage = false">close</mat-icon>
+</div>
+
+<div class="w-100 mt-4">
+    <div *ngIf="isSearch && !user" class="_alert d-flex w-100 align-items-center justify-content-between p-3">
+        Nincs megjeleníthető felhasználó <mat-icon color="accent" role="button" (click)="isSearch = false">close</mat-icon>
+    </div>
+    <div *ngIf="user" class="row">
+        <div class="col-lg-6 pt-3">
+            <table class="table mt-3">
+                <tbody>
+                <tr>
+                    <th>Felhasználónév</th>
+                    <td>{{user.username}}</td>
+                </tr>
+                <tr>
+                    <th>Email cím:</th>
+                    <td>{{user.email}}</td>
+                </tr>
+                <tr>
+                    <th>Előfizetési azonosító:</th>
+                    <td>{{user.payment_id}}</td>
+                </tr>
+                <tr>
+                    <th>Lakcím:</th>
+                    <td>{{user.address}}</td>
+                </tr>
+                <tr>
+                    <th>Telefon:</th>
+                    <td>{{user.phone_number}}</td>
+                </tr>
+                <tr>
+                    <th>Actív szállítási cím:</th>
+                    <td>{{user.active_shipping_address?.zip_code}}
+                        {{user.active_shipping_address?.city}},
+                        {{user.active_shipping_address?.address}}</td>
+                </tr>
+                <tr>
+                    <th>Előfizetés típusa:</th>
+                    <td>{{user.subscription_type?.description}}</td>
+                </tr>
+                <tr>
+                    <th>Előfizetés díja:</th>
+                    <td>{{user.subscription_type?.price}}</td>
+                </tr>
+               <tr>
+                    <th>Utolsó fizetés dátuma:</th>
+                    <td>{{user.last_payment_date.substring(0, 10)}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-6 p-3">
+            <div class="_bordered h-100 bank-transfer-date d-flex flex-column">
+                <h4 class="dashboard-page-subtitle w-100 text-center mb-3">Beérkezett utalás beállítása</h4>
+                <div class="date-form">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Válasszon időpontot</mat-label>
+                        <input matInput
+                               [matDatepicker]="picker"
+                               [(ngModel)]="selectedDate" disabled>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"  [disabled]="false"></mat-datepicker-toggle>
+                        <mat-datepicker #picker  [disabled]="false"></mat-datepicker>
+                    </mat-form-field>
+
+                    <button type="button"
+                            [disabled]="!selectedDate"
+                            (click)="updateLastPaymentDate()"
+                            class="ms-3 px-2 text-white mb-3"
+                            mat-raised-button color="primary">Időpont beállítása</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

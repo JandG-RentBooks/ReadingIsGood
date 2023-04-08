@@ -1,0 +1,64 @@
+<nav *ngIf="showSidebar" id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+    <div class="position-sticky sidebar-sticky">
+        <div class="sidebar-header"></div>
+        <ul class="nav flex-column pt-3">
+            <li class="nav-item">
+                <span class="icon icon-dashboard"></span>
+                <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-link">Dashboard</a>
+            </li>
+
+            <li *ngIf="roles.isAdmin" class="nav-item">
+                <span class="icon icon-users"></span>
+                <a routerLink="/admin/users" routerLinkActive="active" class="nav-link">Felhasználók</a>
+            </li>
+
+            <li class="nav-item">
+                <span class="icon icon-books"></span>
+                <a routerLink="/admin/books" routerLinkActive="active" class="nav-link">Könyvek</a>
+            </li>
+
+            <li class="nav-item">
+                <span class="icon icon-authors"></span>
+                <a routerLink="/admin/authors" routerLinkActive="active" class="nav-link">Szerzők</a>
+            </li>
+
+            <li class="nav-item">
+                <span class="icon icon-publishers"></span>
+                <a routerLink="/admin/publishers" routerLinkActive="active" class="nav-link">Kiadók</a>
+            </li>
+
+
+            <li class="nav-item">
+                <span class="icon icon-categories"></span>
+                <a routerLink="/admin/categories" routerLinkActive="active" class="nav-link">Kategóriák</a>
+            </li>
+
+            <li class="nav-item">
+                <span class="icon icon-cover-types"></span>
+                <a routerLink="/admin/cover-types" routerLinkActive="active" class="nav-link">Borító típusok</a>
+            </li>
+
+            <li class="nav-item">
+                <span class="icon icon-labels"></span>
+                <a routerLink="/admin/labels" routerLinkActive="active" class="nav-link">Cimkék</a>
+            </li>
+
+            <li class="nav-item">
+                <span class="icon icon-images"></span>
+                <a routerLink="/admin/image-storage" routerLinkActive="active" class="nav-link">Médiatár</a>
+            </li>
+
+            <li class="nav-item">
+                <span class="icon icon-images"></span>
+                <a routerLink="/admin/subscription-type" routerLinkActive="active" class="nav-link">Előfizetés típusok</a>
+            </li>
+
+            <li class="nav-item">
+                <span class="icon icon-system-settings"></span>
+                <a routerLink="/admin/system-settings" routerLinkActive="active" class="nav-link">Rendszer beállítások</a>
+            </li>
+
+
+        </ul>
+    </div>
+</nav>

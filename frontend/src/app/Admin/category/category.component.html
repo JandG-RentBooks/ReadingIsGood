@@ -1,0 +1,73 @@
+<div class="sticky-filter">
+    <div class="inner justify-content-between">
+        <span class="action d-inline-flex align-items-center">
+            <span class="d-inline-block d-flex justify-content-end align-items-center">
+                <span (click)="openNew()" class="btn-action btn-new d-inline-block me-2"
+                      matTooltip="Új tétel létrehozása"
+                      matTooltipPosition="right"
+                      matTooltipClass="">
+                </span>
+            </span>
+        </span>
+        <span class="d-inline-block d-flex justify-content-end align-items-center"></span>
+    </div>
+    <div class="sticky-filter-cover d-none"></div>
+</div>
+
+<app-error-modal></app-error-modal>
+<app-delete-modal [name]="selectedItem?.name" (deleteEventEmitter)="destroy($event)" (closeEventEmitter)="closeDeleteModal()"></app-delete-modal>
+
+<app-category-form
+    *ngIf="showFormComponent"
+    [selectedItem]="selectedItem"
+    (errorEventEmitter)="openErrorModal($event)"
+    (closeEventEmitter)="closeNew($event)"></app-category-form>
+
+<div class="admin-container pt-3">
+    <div class="action-panel p-3">
+        <cdk-accordion class="example-accordion">
+            <cdk-accordion-item
+                *ngFor="let row of mainCollection; let index = index;"
+                #accordionItem="cdkAccordionItem"
+                class="example-accordion-item"
+                tabindex="0"
+                [attr.id]="'accordion-header-' + index"
+                [attr.aria-expanded]="accordionItem.expanded"
+                [attr.aria-controls]="'accordion-body-' + index">
+                <div class="example-accordion-item-header">
+                    <span class="header-name-container">
+                        <span class="name">{{ row.name }}</span>
+                        <span class="action d-flex align-items-center">
+                            <span class="btn-action table-btn-edit d-inline-block" matTooltip="Tétel szerkesztése"
+                                  matTooltipPosition="above" matTooltipClass="" (click)="openEdit(row.id, row.name)"></span>
+
+                            <span *ngIf="row.can_delete && !row.children.length" class="btn-action table-btn-delete d-inline-block ms-3" matTooltip="Tétel törlése"
+                                  matTooltipPosition="above" matTooltipClass="" (click)="openDeleteModal(row.id, row.name)"></span>
+                        </span>
+                    </span>
+                    <span class="example-accordion-item-description d-flex align-items-center" (click)="accordionItem.toggle()">
+                        {{ accordionItem.expanded ? '▲' : '▼' }}
+                    </span>
+                </div>
+                <div
+                    class="example-accordion-item-body"
+                    role="region"
+                    [style.display]="accordionItem.expanded ? '' : 'none'"
+                    [attr.id]="'accordion-body-' + index"
+                    [attr.aria-labelledby]="'accordion-header-' + index">
+                    <div *ngFor="let child of row.children" class="children-container">
+                        <span class="name">{{child.name}}</span>
+                        <span class="action d-flex align-items-center">
+                            <span class="btn-action table-btn-edit d-inline-block me-3" matTooltip="Tétel szerkesztése"
+                                  matTooltipPosition="above" matTooltipClass="" (click)="openEdit(child.id, child.name)"></span>
+
+                            <span *ngIf="row.can_delete" class="btn-action table-btn-delete d-inline-block" matTooltip="Tétel törlése"
+                                  matTooltipPosition="above" matTooltipClass="" (click)="openDeleteModal(child.id, child.name)"></span>
+                        </span>
+                    </div>
+                </div>
+            </cdk-accordion-item>
+        </cdk-accordion>
+    </div>
+</div>
+

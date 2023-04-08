@@ -1,0 +1,38 @@
+<div class="modal fade"
+     id="itemDeleteModal"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="itemDeleteModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"
+         role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Redszerüzenet</h5>
+                <button type="button"
+                        class="close"
+                        data-bs-dismiss="modal"
+                        (click)="close()"
+                        aria-label="">
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                    <span class="body-title">
+                        Biztos benne, hogy törölni szeretné a következőt?
+                        <p id="name" class="fw-bold mt-2 mb-0" [innerHTML]="strName"></p>
+                    </span>
+            </div>
+            <div class="modal-footer d-flex align-items-center justify-content-evenly">
+                <button type="button"
+                        (click)="deleteItem()"
+                        class="px-2"
+                        mat-raised-button color="warn">Igen</button>
+                <button type="button"
+                        class="px-2"
+                        mat-raised-button color="accent"
+                        (click)="close()"
+                        data-bs-dismiss="modal">Mégsem</button>
+            </div>
+        </div>
+    </div>
+</div>

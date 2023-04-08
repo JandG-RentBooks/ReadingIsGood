@@ -1,0 +1,38 @@
+<div class="image-container pb-5">
+    <div class="inner pb-5">
+        <div class="header mb-2">
+            <span class="title">Képgaléria</span>
+            <span class="close" (click)="close()"></span>
+        </div>
+        <span class="d-inline-block d-flex justify-content-end align-items-center me-4 mb-3">
+                <div class="search">
+                    <span (click)="search()" class="btn-search d-inline-block"></span>
+                    <input [(ngModel)]="searchValue" (keyup.enter)="search()" type="text"
+                           placeholder="Keresés...">
+                    <span *ngIf="isSearch" (click)="searchReset()" class="btn-reset d-inline-block"></span>
+                </div>
+        </span>
+        <div class="content pb-5">
+            <div class="gallery">
+                <div class="row">
+                    <div *ngFor="let image of mainCollection" class="col-md-2 mb-3">
+                        <mat-card class="example-card">
+                            <mat-card-header>
+                                <mat-card-title><span class="mat-card-title">{{image.name}}</span></mat-card-title>
+                                <mat-card-subtitle><span class="mat-card-subtitle">{{image.file_name.substring(0,30)}}</span></mat-card-subtitle>
+                            </mat-card-header>
+                            <img mat-card-image [src]="imageUrl+image.path" alt="" class="mat-card-image">
+                            <mat-card-content>
+                            </mat-card-content>
+                            <mat-card-actions>
+                        <span class="d-flex w-100 align-items-center justify-content-end">
+                            <mat-icon (click)="selectImage(image.id, image.path)" color="accent" role="button">add_photo_alternate</mat-icon>
+                        </span>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

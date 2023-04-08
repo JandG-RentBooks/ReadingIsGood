@@ -1,0 +1,64 @@
+<div class="container front-container py-5 _books">
+            <span class="d-inline-block d-flex justify-content-between align-items-center mb-3 p-2 bg-white">
+                <div class="__categories">
+                    <button mat-button [matMenuTriggerFor]="_categories">Kategóriák</button><span *ngIf="isCategorySearch" class="d-inline-block ms-2" role="button" (click)="searchCategoryReset()">✕</span>
+                        <mat-menu #_categories="matMenu">
+                            <ul class="book-cat-list">
+                                <li class="_cat" *ngFor="let category of categories">{{category.name}}
+                                    <div>
+                                        <button (click)="searchCategory(item.id)" class="m-1" *ngFor="let item of category.children"
+                                                 mat-stroked-button>{{item.name}}</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </mat-menu>
+                </div>
+                <div class="__search">
+                    <span (click)="search()" class="btn-search d-inline-block"></span>
+                    <input [(ngModel)]="params.searchValue" (keyup.enter)="search()" type="text"
+                           placeholder="Keresés...">
+                    <span *ngIf="isSearch" (click)="searchReset()" class="btn-reset d-inline-block"></span>
+                </div>
+            </span>
+    <div class="row">
+        <div *ngFor="let item of mainCollection" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
+            <div class="book-card bg-white shadow-sm">
+                <div class="image" [ngStyle]="{ 'background-image': 'url(' + imageUrl+item.file_path + ')'}"></div>
+                <div class="__body p-2">
+                    <div class="title">{{item.title}}</div>
+                    <div class="author">{{item.authors}}</div>
+                </div>
+                <div class="__footer p-2">
+                    <app-wishlist [bookId]="item.id" [show]="showWishList"></app-wishlist>
+
+                    <span class="__available" matTooltip="Elérhető"
+                          matTooltipPosition="above" matTooltipClass="">
+                        {{item.available}}
+                    </span>
+
+                    <span class="__nav" role="button" (click)="open(item)" matTooltip="Részletek megtekintése"
+                          matTooltipPosition="above" matTooltipClass="">
+                        <mat-icon>open_in_new</mat-icon>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="__pagination mt-4">
+        <div class="left">
+            <span class="me-2 __text">Megjelenítve: </span>
+            <span>
+                    <select [(ngModel)]="params.perPage" (ngModelChange)="perPageOnChange($event)" class="form-select">
+                        <option *ngFor="let page of params.pages">{{page}}</option>
+                    </select>
+                </span>
+            <span *ngIf="total !== null" class="ms-3 __total">Össz: {{ total }}</span>
+        </div>
+        <div class="pager-container">
+            <app-pagination [links]="links" (paginateEventEmitter)="paginate($event)"></app-pagination>
+        </div>
+    </div>
+    <app-front-book-details *ngIf="showDetails" [selectedItem]="selectedItem"
+                            (closeEventEmitter)="close()"></app-front-book-details>
+</div>

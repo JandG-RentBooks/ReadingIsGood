@@ -1,0 +1,5 @@
+<span *ngIf="show" class="wish-list" role="button" (click)="addToWishList()" [class]="active ? 'active-wishlist' : ''"
+      matTooltip="Kivánságlista"
+      matTooltipPosition="above" matTooltipClass=""></span>
+<span *ngIf="!show" class="wish-list empty" matTooltip="Kivánságlista használatához be kell jelentkezni."
+      matTooltipPosition="above" matTooltipClass=""></span>

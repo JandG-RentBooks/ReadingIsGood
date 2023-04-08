@@ -1,0 +1,86 @@
+<div class="page-title w-100 text-center mb-2">Adataim szerkesztése</div>
+
+<!--<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="300ms">-->
+<!--    <mat-tab label="Személyes adatok">-->
+<!--    </mat-tab>-->
+<!--    <mat-tab label="Szállítási címek">-->
+<!--    </mat-tab>-->
+<!--</mat-tab-group>-->
+<div class="row">
+    <div class="col-lg-6 pt-3">
+        <table class="table mt-3">
+            <tbody>
+            <tr>
+                <th>Felhasználónév</th>
+                <td>{{userData.username}}</td>
+            </tr>
+            <tr>
+                <th>Email cím:</th>
+                <td>{{userData.email}}</td>
+            </tr>
+            <tr>
+                <th>Előfizetési azonosító: <span class="d-inline-block ms-2" matTooltip="Utaláskor ez az azonosító kerül a megjegyzés rovatba."
+                                                 matTooltipPosition="above" matTooltipClass="">
+                    <mat-icon color="accent">info</mat-icon>
+                </span>
+                </th>
+                <td>{{userData.payment_id}}</td>
+            </tr>
+            <tr>
+                <th>Actív szállítási cím:</th>
+                <td>{{userData.active_shipping_address?.zip_code}}
+                    {{userData.active_shipping_address?.city}},
+                    {{userData.active_shipping_address?.address}}</td>
+            </tr>
+            <tr>
+                <th>Előfizetés típusa:</th>
+                <td>{{userData.subscription_type?.description}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-6 pt-3">
+        <form [formGroup]="form" class="d-flex flex-column" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+                <mat-label>Név</mat-label>
+                <input matInput formControlName="name" type="text">
+                <mat-error *ngIf="form.controls['name'].hasError('required')">A név megadása kötelező.</mat-error>
+                <mat-error *ngIf="form.controls['name'].hasError('minlength')">A név legalább 3 karakter.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Cím</mat-label>
+                <input matInput formControlName="address" type="text">
+                <mat-error *ngIf="form.controls['address'].hasError('required')">A cím megadása kötelező.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Telefon</mat-label>
+                <input matInput formControlName="phone_number" type="text">
+                <!--                    <mat-error *ngIf="form.controls['phone_number'].hasError('required')">A telefonszám megadása kötelező.</mat-error>-->
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="mt-2">
+                <mat-label>Jelszó</mat-label>
+                <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+                <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="form.controls['password'].hasError('minlength')">Az érvényes jelszó legalább 8 karakter.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="mt-2">
+                <mat-label>Jelszó megerősítése</mat-label>
+                <input matInput formControlName="c_password" [type]="hide ? 'password' : 'text'">
+                <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="form.controls['c_password'].hasError('minlength')">Az érvényes jelszó legalább 8 karakter.</mat-error>
+            </mat-form-field>
+
+            <button type="submit" mat-raised-button color="accent" class="btn-login mt-3">
+                Adatok módosítása
+            </button>
+        </form>
+    </div>
+</div>

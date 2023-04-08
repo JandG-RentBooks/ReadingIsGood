@@ -1,0 +1,56 @@
+<div *ngIf="showNewPanel" class="new-lending-panel">
+    <app-new-lending-panel [selectedItem]="selectedItem"
+                           (saveEventEmitter)="saveLending($event)"></app-new-lending-panel>
+</div>
+<div *ngIf="newLendingCreatedSuccess" class="_alert d-flex w-100 align-items-center justify-content-between p-3 mb-2">
+    Az új kölcsönzési tétel sikeresen létrehozva, átadva csomagolásra. <mat-icon color="accent" role="button" (click)="newLendingCreatedSuccess = false">close</mat-icon>
+</div>
+<table class="table table-striped admin-table">
+    <thead>
+    <tr class="brd">
+        <th>ID</th>
+        <th>Név</th>
+        <th>Email</th>
+        <th>Szállítási cím</th>
+        <th>Fizetési azonosító</th>
+        <th>Előfizetés típusa</th>
+        <th></th>
+    </tr>
+    <tr class="spacer"></tr>
+    </thead>
+
+    <tbody class="bg-white-">
+    <tr *ngIf="mainCollection.length === 0">
+        <td colspan="7">Nincs megjelíthető tétel</td>
+    </tr>
+    <tr *ngFor="let row of mainCollection">
+        <td>{{ row.id }}</td>
+        <td>{{ row.name }}</td>
+        <td>{{ row.email }}</td>
+        <td>{{ row.active_shipping_address.zip_code }} {{ row.active_shipping_address.city }}, {{ row.active_shipping_address.address }}</td>
+        <td>{{ row.payment_id }}</td>
+        <td>{{ row.subscription_type?.description }}</td>
+        <td class="text-end">
+                <span class="btn-action btn-new d-inline-block me-2" matTooltip="Új Kölcsönzés létrehozása"
+                      matTooltipPosition="left" matTooltipClass="" (click)="openNewPanel(row.id, row.name)"></span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="sticky-footer">
+    <div class="left-side"></div>
+    <div class="right-side">
+        <div class="left">
+            <span class="me-2 __text">Megjelenítve: </span>
+            <span>
+                    <select [(ngModel)]="params.perPage" (ngModelChange)="perPageOnChange($event)" class="form-select">
+                        <option *ngFor="let page of params.pages">{{page}}</option>
+                    </select>
+                </span>
+            <span *ngIf="total !== null" class="ms-3 __total">Össz: {{ total }}</span>
+        </div>
+        <div class="pager-container">
+            <app-pagination [links]="links" (paginateEventEmitter)="paginate($event)"></app-pagination>
+        </div>
+    </div>
+</div>

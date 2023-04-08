@@ -1,0 +1,87 @@
+<div class="dashboard-details">
+    <div class="inner">
+        <div class="header">
+            <span class="title">{{ selectedItem.name }}</span>
+            <span class="close" (click)="close()"></span>
+        </div>
+        <div class="content">
+            <!-- Foglalás adatai: shipping_token, created_at, created_by.name-->
+            <div class="__title">Foglalás adatai</div>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Szállítási azonosító</th>
+                    <td>{{lendingData.shipping_token}}</td>
+                </tr>
+                <tr>
+                    <th>Létrehozva</th>
+                    <td>{{lendingData.created_at}}</td>
+                </tr>
+                <tr>
+                    <th>Létrehozta</th>
+                    <td>{{lendingData.created_by?.name}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+            <!-- Felhasználó adatai user.name, user.email, user.active_shipping_address zip_code-city-address
+                    user.payment_id-->
+            <div class="__title">Felhasználó adatai</div>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Név</th>
+                    <td>{{lendingData.user?.name}}</td>
+                </tr>
+                <tr>
+                    <th>Email cím</th>
+                    <td>{{lendingData.user?.email}}</td>
+                </tr>
+                <tr>
+                    <th>Szállítási cím</th>
+                    <td>
+                        {{lendingData.user?.active_shipping_address.zip_code}}
+                         {{lendingData.user?.active_shipping_address.city}},
+                         {{lendingData.user?.active_shipping_address.address}}
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <!-- Könyvek adatai books as array book.title, book.authors as array, book.publisher.name, book.published, in_stock, available-->
+            <div class="__title">Könyvek adatai</div>
+            <div class="row">
+                <div *ngFor="let book of lendingData.books" class="col-md-12 col-lg-6 my-1">
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-subtitle>
+                                <span *ngFor="let author of book.authors; index as i; first as isFirst">
+                                    <span *ngIf="!isFirst">, </span>{{author.name}}
+                                </span>
+                            </mat-card-subtitle>
+                            <mat-card-title>{{book.title}}</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>Kiadó/kiadás éve</th>
+                                    <td>{{book.publisher.name}}/{{book.published}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Teljes állomány</th>
+                                    <td>{{book.in_stock}} db.</td>
+                                </tr>
+                                <tr>
+                                    <th>Elérhető mennyiség</th>
+                                    <td>{{book.available}} db.</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

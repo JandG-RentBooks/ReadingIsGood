@@ -1,0 +1,16 @@
+<section id="lastRented">
+    <div class="container">
+        <div class="d-flex flex-column align-items-center mb-4 text-secondary">
+        <h2>Újonnan a kínálatban</h2>
+        <h5>Olvassa Ön is!</h5>
+        </div>
+            <p-carousel [value]="books" [numVisible]="4" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
+                <ng-template let-book pTemplate="item">
+                    <div class="carousel-item">
+                        <div class="image" [ngStyle]="{ 'background-image': 'url(' + imageUrl+book.file_path + ')'}"></div>
+                        <div class="title mt-2">{{book.title}}</div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+    </div>
+</section>

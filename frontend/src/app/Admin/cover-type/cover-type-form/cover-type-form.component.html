@@ -1,0 +1,23 @@
+<div class="add-new-item">
+    <div class="inner">
+        <div class="header">
+            <span *ngIf="selectedItem.id === null" class="title">Új borító típus létrehozása</span>
+            <span *ngIf="selectedItem.id" class="title">Szerkesztés: {{ selectedItem.name }}</span>
+            <span class="close" (click)="close()"></span>
+        </div>
+        <div class="content">
+            <form [formGroup]="form" class="d-flex flex-column" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="fill">
+                    <mat-label>Elnevezése</mat-label>
+                    <input matInput formControlName="name" type="text">
+                    <mat-error *ngIf="form.controls['name'].hasError('required')">Az elnevezés megadása kötelező.</mat-error>
+                    <mat-error *ngIf="form.controls['name'].hasError('minlength')">Az elnevezés legalább 3 karakter.</mat-error>
+                </mat-form-field>
+
+                <button *ngIf="selectedItem.id === null" type="submit" mat-raised-button color="primary" class="text-white mt-2">Mentés</button>
+                <button *ngIf="selectedItem.id !== null" mat-raised-button color="primary" class="text-white mt-2">Módosítás</button>
+
+            </form>
+        </div>
+    </div>
+</div>

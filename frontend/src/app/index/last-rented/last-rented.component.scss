@@ -1,0 +1,16 @@
+.carousel-item {
+    width: 100%;
+    padding: 0 12px 0;
+    display: flex;
+    flex-direction: column;
+    .image{
+        width: 100%;
+        height:450px;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .title {
+        color: #3e5064;
+    }
+}
+

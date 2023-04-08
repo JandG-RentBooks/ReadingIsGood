@@ -1,0 +1,41 @@
+<div class="container front-container pb-5 pt-4 _references">
+    <div *ngIf="showNewCommentButton" class="w-100 mb-3 d-flex justify-content-end">
+        <mat-icon (click)="openNewReference()" class="icon-new-reference" role="button" matTooltip="Új hozzászólás"
+                   matTooltipPosition="left" matTooltipClass="">comment</mat-icon>
+    </div>
+    <app-new-reference *ngIf="showNewComment" (closeEventEmitter)="openNewReference()"></app-new-reference>
+    <div class="reference-items">
+        <div *ngFor="let row of mainCollection" class="_item bg-white shadow-sm mb-3">
+            <div class="_header">
+                <div class="name">{{row.user.name}} <span class="date d-inline-block ms-2">{{row.created_at.substring(0, 10)}}</span></div>
+                <div class="rate">
+                    <span *ngFor="let num of  [1,2,3,4,5]">
+                        <i *ngIf="num > row.rating; else fill" class="bi bi-star"></i>
+                        <ng-template #fill>
+                            <i class="bi bi-star-fill"></i>
+                        </ng-template>
+                    </span>
+                </div>
+            </div>
+            <div class="_content">
+                <i class="bi bi-quote"></i>
+                {{row.description}}
+            </div>
+        </div>
+    </div>
+
+    <div class="__pagination mt-4">
+        <div class="left">
+            <span class="me-2 __text">Megjelenítve: </span>
+            <span>
+                    <select [(ngModel)]="params.perPage" (ngModelChange)="perPageOnChange($event)" class="form-select">
+                        <option *ngFor="let page of params.pages">{{page}}</option>
+                    </select>
+                </span>
+            <span *ngIf="total !== null" class="ms-3 __total">Össz: {{ total }}</span>
+        </div>
+        <div class="pager-container">
+            <app-pagination [links]="links" (paginateEventEmitter)="paginate($event)"></app-pagination>
+        </div>
+    </div>
+</div>

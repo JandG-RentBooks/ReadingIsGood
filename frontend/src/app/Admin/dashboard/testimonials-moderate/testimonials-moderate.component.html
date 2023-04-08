@@ -1,0 +1,30 @@
+<div class="row _testimonials-moderate">
+    <div *ngFor="let row of mainCollection" class="col-md-12 col-lg-6 my-1">
+        <mat-card>
+            <mat-card-content>
+                <div class="w-100 d-flex flex-column">
+                    <div class="_description mb-3">{{row.description}}</div>
+                    <div class="_footer d-flex align-items-center justify-content-between">
+                        <div class="rate">
+                            <span *ngFor="let num of  [1,2,3,4,5]">
+                                <i *ngIf="num > row.rating; else fill" class="bi bi-star"></i>
+                                <ng-template #fill>
+                                    <i class="bi bi-star-fill"></i>
+                                </ng-template>
+                            </span>
+                        </div>
+                        <div class="_action">
+                            <button mat-mini-fab (click)="check(row.id)" color="primary" aria-label="checked" class="me-3">
+                                <mat-icon>spellcheck</mat-icon>
+                            </button>
+
+                            <button mat-mini-fab (click)="inactivate(row.id)" color="warn" aria-label="inactivate" class="text-black">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

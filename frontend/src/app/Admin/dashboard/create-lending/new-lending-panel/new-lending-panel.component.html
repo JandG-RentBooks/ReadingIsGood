@@ -1,0 +1,122 @@
+<h4 class="username">{{selectedItem.name}}</h4>
+<div class="row mb-4">
+    <div class="col-lg-5 pt-3">
+        <table class="table user-table mt-3">
+            <tbody>
+            <tr>
+                <th>Felhasználónév</th>
+                <td>{{user.username}}</td>
+            </tr>
+            <tr>
+                <th>Email cím:</th>
+                <td>{{user.email}}</td>
+            </tr>
+            <tr>
+                <th>Előfizetési azonosító:</th>
+                <td>{{user.payment_id}}</td>
+            </tr>
+            <tr>
+                <th>Lakcím:</th>
+                <td>{{user.address}}</td>
+            </tr>
+            <tr>
+                <th>Telefon:</th>
+                <td>{{user.phone_number}}</td>
+            </tr>
+            <tr>
+                <th>Actív szállítási cím:</th>
+                <td>{{user.active_shipping_address?.zip_code}}
+                    {{user.active_shipping_address?.city}},
+                    {{user.active_shipping_address?.address}}</td>
+            </tr>
+            <tr>
+                <th>Előfizetés típusa:</th>
+                <td>{{user.subscription_type?.description}}</td>
+            </tr>
+            <tr>
+                <th>Utolsó fizetés dátuma:</th>
+                <td>{{user.last_payment_date?.substring(0, 10)}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-7 pt-3">
+        <div class="_bordered h-100 bank-transfer-date d-flex flex-column">
+            <h4 *ngIf="createStep && !createdLendingId" class="dashboard-page-subtitle w-100 text-center mb-3">Új
+                kölcsönzés létrehozása</h4>
+            <h4 *ngIf="wishlistStep && !doneStep" class="dashboard-page-subtitle w-100 text-center mb-3">Könyvek
+                hozzáadása a kölcsönzéshez</h4>
+            <h4 *ngIf="doneStep" class="dashboard-page-subtitle w-100 text-center mb-3">Véglegesítés</h4>
+            <div class="__stepper">
+                <div class="step-control-line">
+                    <span class="_control-item"><span class="_number"
+                                                      [ngClass]="createStep ? 'active' : ''">1</span></span>
+                    <span class="_line"></span>
+                    <span class="_control-item"><span class="_number" [ngClass]="wishlistStep ? 'active' : ''">2</span></span>
+                    <span class="_line"></span>
+                    <span class="_control-item"><span class="_number"
+                                                      [ngClass]="doneStep ? 'active' : ''">3</span></span>
+                </div>
+                <div *ngIf="createStep && !createdLendingId" class="step-container createStep">
+                    <p class="text-center mb-3">Első lépés: új kölcsönzési tétel létrehozása:</p>
+                    <button mat-raised-button (click)="storeLending()" color="primary" class="text-white">
+                        Kölcsönzés létrehozása
+                    </button>
+                </div>
+                <div *ngIf="wishlistStep && !doneStep" class="step-container wishlistStep">
+                    <div class="row w-100 mt-4">
+                        <div class="col-lg-6">
+                            <mat-card class="w-100 wishlist-card h-100">
+                                <mat-card-header class="bg-light pt-0">
+                                    <span class="w-100 d-flex align-items-center justify-content-between">
+                                        <mat-card-title class="py-2">Kivánságlista elemei</mat-card-title>
+                                    </span>
+                                </mat-card-header>
+
+                                <mat-card-content>
+                                    <ul class="px-0">
+                                        <li *ngFor="let row of wishlist" class="py-2 border-bottom d-flex align-items-center justify-content-between">
+                                            {{row.title}}
+                                            <span (click)="addBookToLending(row)" class="list-add"></span>
+                                        </li>
+                                    </ul>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        <div class="col-lg-6">
+                            <mat-card class="w-100 wishlist-card h-100">
+                                <mat-card-header class="bg-light pt-0">
+                                    <span class="w-100 d-flex align-items-center justify-content-between">
+                                        <mat-card-title class="py-2">Kölcsönzéshez adott elemek</mat-card-title>
+                                        <span class="d-inline-block __max-book" [ngClass]="maxBook === addedBook ? 'bg-danger' : ''">{{addedBook}}/{{maxBook}}</span>
+                                    </span>
+                                </mat-card-header>
+
+                                <mat-card-content>
+                                    <ul class="px-0">
+                                        <li *ngFor="let row of wishlistSet" class="py-2 border-bottom d-flex align-items-center justify-content-between">
+                                            <span (click)="removeBook(row)" class="list-add list-remove"></span>
+                                            {{row.title}}
+                                        </li>
+                                    </ul>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        <div *ngIf="maxBook === addedBook" class="col-12 text-center mt-3"><button mat-raised-button (click)="updateLendingState(1)" color="primary" class="text-white">Tovább
+                        </button></div>
+                    </div>
+                </div>
+                <div *ngIf="doneStep" class="step-container doneStep">
+                    <button mat-raised-button
+                            (click)="done()"
+                            [disabled]="!isConfirmed"
+                            color="primary" class="text-white mb-3">
+                        Kölcsönzés véglegesítése
+                    </button>
+                    <mat-slide-toggle color="warn" [(ngModel)]="isConfirmed">Véglegesítem a kölcsönzést</mat-slide-toggle>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

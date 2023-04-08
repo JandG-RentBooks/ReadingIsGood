@@ -1,0 +1,30 @@
+<section id="testimonial">
+    <div class="container">
+        <div class="d-flex flex-column align-items-center mb-4 text-secondary">
+            <p-carousel [value]="testimonials" [numVisible]="4" [numScroll]="1" [circular]="true"
+                        [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
+                <ng-template let-testimonial pTemplate="item">
+                    <div class="carousel-item">
+                        <div class="carousel-item-container">
+                            <span class="d-inline-block mb-3">
+                                <i class="bi bi-quote"></i>
+                                {{testimonial.description}}
+                            </span>
+                            <div class="_footer">
+                                {{testimonial.user?.name}}
+                                <div class="_rate">
+                                    <span *ngFor="let num of  [1,2,3,4,5]">
+                                        <i *ngIf="num > testimonial.rating; else fill" class="bi bi-star"></i>
+                                        <ng-template #fill>
+                                            <i class="bi bi-star-fill"></i>
+                                        </ng-template>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+    </div>
+</section>

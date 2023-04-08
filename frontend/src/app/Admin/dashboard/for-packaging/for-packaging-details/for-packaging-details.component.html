@@ -1,0 +1,126 @@
+<div class="for-packaging-work-panel">
+    <div class="row content mb-4 mt-0 p-0">
+        <div class="header mb-3">
+            <span class="title">{{ lendingData.user?.name }} / {{lendingData.shipping_token}}</span>
+            <span class="close" (click)="close()"></span>
+        </div>
+        <div class="col-lg-6">
+            <!-- Foglalás adatai: shipping_token, created_at, created_by.name-->
+            <div class="__title">Foglalás adatai</div>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Szállítási azonosító</th>
+                    <td>{{lendingData.shipping_token}}</td>
+                </tr>
+                <tr>
+                    <th>Létrehozva</th>
+                    <td>{{lendingData.created_at.substring(0, 10)}}</td>
+                </tr>
+                <tr>
+                    <th>Létrehozta</th>
+                    <td>{{lendingData.created_by?.name}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-6">
+            <div class="__title">Felhasználó adatai</div>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Név</th>
+                    <td>{{lendingData.user?.name}}</td>
+                </tr>
+                <tr>
+                    <th>Email cím</th>
+                    <td>{{lendingData.user?.email}}</td>
+                </tr>
+                <tr>
+                    <th>Szállítási cím</th>
+                    <td>
+                        <strong>irányítószám:</strong> {{lendingData.user?.active_shipping_address.zip_code}}<br>
+                        <strong>település:</strong> {{lendingData.user?.active_shipping_address.city}}<br>
+                        <strong>cím:</strong> {{lendingData.user?.active_shipping_address.address}}
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row content">
+        <div class="__title">Könyvek adatai</div>
+        <div *ngFor="let book of lendingData.books" class="col-md-12 col-lg-6 my-1">
+            <mat-card>
+                <span class="d-flex align-items-center justify-content-between pe-3">
+                    <mat-card-header>
+                    <mat-card-subtitle>
+                                <span *ngFor="let author of book.authors; index as i; first as isFirst">
+                                    <span *ngIf="!isFirst">, </span>{{author.name}}
+                                </span>
+                    </mat-card-subtitle>
+                    <mat-card-title>{{book.title}}</mat-card-title>
+                </mat-card-header>
+                    <span *ngIf="!checkedBookSet.includes(book.id)" (click)="check(book.id)" role="button"
+                          class="__checked"><i class="bi bi-circle"></i></span>
+                    <span *ngIf="checkedBookSet.includes(book.id)" (click)="unCheck(book.id)" role="button"
+                          class="__checked text-success"><i class="bi bi-check-circle"></i></span>
+                </span>
+
+                <mat-card-content>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Kiadó/kiadás éve</th>
+                            <td>{{book.publisher.name}}/{{book.published}}</td>
+                        </tr>
+                        <tr>
+                            <th>ISBN</th>
+                            <td>{{book.isbn_code}}</td>
+                        </tr>
+                        <tr>
+                            <th>Teljes állomány</th>
+                            <td>{{book.in_stock}} db.</td>
+                        </tr>
+                        <tr>
+                            <th>Elérhető mennyiség</th>
+                            <td>{{book.available}} db.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div class="w-100 content d-flex justify-content-between mb-5 p-2">
+        <div class="__qr mt-5 d-flex flex-column align-items-center justify-content-center">
+            <div id="qrcodeImage" class="d-flex flex-column align-items-center justify-content-center">
+                <h4>{{lendingData.shipping_token}}</h4>
+                <qrcode
+                    [qrdata]="lendingData.shipping_token"
+                    [allowEmptyString]="true"
+                    [alt]="lendingData.shipping_token"
+                    [ariaLabel]="'QR Code ...'"
+                    [cssClass]="'center'"
+                    [colorDark]="'#000000ff'"
+                    [colorLight]="'#ffffffff'"
+                    [elementType]="'img'"
+                    [errorCorrectionLevel]="'M'"
+                    [margin]="2"
+                    [scale]="1"
+                    [title]="lendingData.shipping_token"
+                    [width]="300"
+                ></qrcode>
+            </div>
+            <button mat-raised-button (click)="printQr()" color="accent" class="text-white">Nyomtatás</button>
+        </div>
+        <div *ngIf="showIsDone" class="__is-done-button mt-5">
+            <button mat-raised-button (click)="done()" color="warn" class="text-white mb-3" [disabled]="!isConfirmed">
+                Csomagolás véglegesítése
+            </button>
+            <mat-slide-toggle color="warn" [(ngModel)]="isConfirmed">Véglegesítem a csomagolást</mat-slide-toggle>
+        </div>
+    </div>
+</div>

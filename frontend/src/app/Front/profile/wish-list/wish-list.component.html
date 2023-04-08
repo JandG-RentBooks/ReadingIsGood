@@ -1,0 +1,17 @@
+<div class="page-title w-100 text-center mb-2">Kivánságlista összeállítása</div>
+<div class="row">
+    <div class="col-lg-6 pt-3">
+        A kívánságlistája az előfizetése kulcsa. Amikor érdekli egy könyv, csak kattintson a <span class="wish-list d-inline-block"></span> ikonra és a <a class="" routerLink="/books">könyv</a> a kívánságlistája elejére kerül. Az előfizetési csomagjában meghatározott darab számú könyvet automatikusan postázzuk. Amikor visszakapjuk Öntől a könyveket, rögtön küldjük a kívánságlistájáról az újabb mennyisségű könyvet és így tovább. Akár 50 könyvet is hozzáadhat a kívánságlistájához, amelyet bármikor módosíthat (törölhet könyvet vagy a sorrenden is változtathat). Ajánlatos 10-15 könyvet mindig a kívánságlistáján tartani, hogy mindig tudjunk Önnek könyveket küldeni.
+    </div>
+    <div class="col-lg-6 pt-3">
+        <div *ngIf="wishlist.length > 0" cdkDropList class="wish-drag-list" (cdkDropListDropped)="drop($event)">
+            <div class="wishlist-box" *ngFor="let item of wishlist" cdkDrag>
+                <div class="wishlist-placeholder" *cdkDragPlaceholder matchSize="true"></div>
+                <span class="__title">{{item.title}}</span>
+                <span class="__delete">
+                    <mat-icon (click)="remove(item.id)" color="warn" role="button">delete</mat-icon>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

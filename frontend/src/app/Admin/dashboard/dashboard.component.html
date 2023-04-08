@@ -1,0 +1,101 @@
+<div class="sticky-filter">
+    <div class="inner justify-content-between">
+        <span class="action d-inline-flex align-items-center"></span>
+        <span class="d-inline-block d-flex justify-content-end align-items-center pe-5">
+                <mat-icon matBadge="15" matBadgeColor="warn" class="mt-2 me-4">card_giftcard</mat-icon>
+                <mat-icon matBadge="15" matBadgeColor="warn" class="mt-2">feedback</mat-icon>
+        </span>
+    </div>
+    <div class="sticky-filter-cover d-none"></div>
+</div>
+
+<div class="admin-container pt-3">
+    <div class="action-panel">
+        <mat-drawer-container class="__dashboard-mat-drawer-container" autosize>
+            <mat-drawer #drawer class="__dashboard-sidenav" mode="side">
+                <div class="list-group-dashboard">
+                    <button (click)="setVisibility('showFirsPage', $event)"
+                            type="button"
+                            class="list-group-item list-group-item-action active"
+                            aria-current="true">
+                        Nyitólap
+                    </button>
+
+                    <button (click)="setVisibility('showLendingsPage', $event)"
+                            type="button"
+                            class="list-group-item list-group-item-action"
+                            aria-current="true">
+                        Kölcsönzések kezelése
+                    </button>
+
+                    <button (click)="setVisibility('showForPackagingPage', $event)"
+                            type="button"
+                            class="list-group-item list-group-item-action"
+                            aria-current="true">
+                        Csomagolásra átadva
+                    </button>
+
+                    <button (click)="setVisibility('showBankTransferPage', $event)"
+                            type="button"
+                            class="list-group-item list-group-item-action"
+                            aria-current="true">
+                        Utalások kezelése
+                    </button>
+
+                    <button (click)="setVisibility('showReceivedPackagesPage', $event)"
+                            type="button"
+                            class="list-group-item list-group-item-action"
+                            aria-current="true">
+                        Beérkezett csomagok
+                    </button>
+
+                    <button (click)="setVisibility('showTestimonialsPage', $event)"
+                            type="button"
+                            class="list-group-item list-group-item-action"
+                            aria-current="true">
+                        Hozzászólások
+                    </button>
+
+                    <button (click)="setVisibility('showPagesPage', $event)"
+                            type="button"
+                            class="list-group-item list-group-item-action"
+                            aria-current="true">
+                        Szöveges oldalak
+                    </button>
+
+                </div>
+            </mat-drawer>
+
+            <div class="__dashboard-content">
+                <div class="__header">
+                    <div *ngIf="!isSidebarOpen" class="ps-2">
+                        <mat-icon (click)="openSidebar()" role="button" color="accent">menu</mat-icon>
+                    </div>
+                    <div *ngIf="isSidebarOpen" class="ps-2">
+                        <mat-icon (click)="openSidebar()" role="button" color="accent">close</mat-icon>
+                    </div>
+
+                    <div class="__title">{{pageTitle}}</div>
+                </div>
+
+                <app-stat-cards *ngIf="visibilityOptions.showFirsPage"></app-stat-cards>
+                <div class="px-3">
+                    <app-active-lendings *ngIf="visibilityOptions.showFirsPage"></app-active-lendings>
+                </div>
+
+                <div class="work-container p-4">
+                    <app-create-lending *ngIf="visibilityOptions.showLendingsPage"></app-create-lending>
+                    <app-bank-transfer *ngIf="visibilityOptions.showBankTransferPage"></app-bank-transfer>
+                    <app-received-packages *ngIf="visibilityOptions.showReceivedPackagesPage"></app-received-packages>
+                    <app-for-packaging *ngIf="visibilityOptions.showForPackagingPage"></app-for-packaging>
+                    <app-testimonials-moderate *ngIf="visibilityOptions.showTestimonialsPage"></app-testimonials-moderate>
+                    <app-pages *ngIf="visibilityOptions.showPagesPage"></app-pages>
+                </div>
+
+            </div>
+
+        </mat-drawer-container>
+
+    </div>
+</div>
+

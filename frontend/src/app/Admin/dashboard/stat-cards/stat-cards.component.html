@@ -1,0 +1,78 @@
+<div class="row stat-cards ms-0 me-0 mt-2">
+    <div class="col-12 col-sm-6 col-xxl-3 d-flex">
+        <div class="card">
+            <div class="card-line bg-blue"></div>
+            <div class="card-body">
+                <div class="header">
+                    Regisztrált felhasználók
+                    <i class="bi bi-people-fill bg-blue"></i>
+                </div>
+                <div class="__line">
+                    <span class="key">Összes regisztrált felhasználó:</span>
+                    <span class="value bg-green">{{allRegisteredUsers}}</span>
+                </div>
+                <div class="__line">
+                    <span class="key">Előfizetéssel rendelkezők:</span>
+                    <span class="value bg-green">{{allSubscribedUsers}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-xxl-3 d-flex">
+        <div class="card">
+            <div class="card-line bg-orange"></div>
+            <div class="card-body">
+                <div class="header">
+                    Könyvek
+                    <i class="bi bi-book-fill bg-orange"></i>
+                </div>
+                <div class="__line">
+                    <span class="key">Teljes állomány:</span>
+                    <span class="value bg-indigo text-white">{{allBooks}}</span>
+                </div>
+                <div class="__line">
+                    <span class="key">Kölcsönzés alatt:</span>
+                    <span class="value bg-indigo text-white">{{allRentedBooks}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-xxl-3 d-flex">
+        <div class="card">
+            <div class="card-line bg-indigo"></div>
+            <div class="card-body">
+                <div class="header">
+                    Kölcsönzések
+                    <i class="bi bi-send-check-fill bg-indigo"></i>
+                </div>
+                <div class="__line">
+                    <span class="key">Összes kölcsönzés:</span>
+                    <span class="value bg-orange text-white">{{allLendings}}</span>
+                </div>
+                <div class="__line">
+                    <span class="key">Aktuális kölcsönzések száma:</span>
+                    <span class="value bg-orange text-white">{{allCurrentLendings}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-xxl-3 d-flex">
+        <div class="card">
+            <div class="card-line bg-green-mid"></div>
+            <div class="card-body">
+                <div class="header">
+                    Felhasználói vélemények
+                    <i class="bi bi-star-fill bg-green-mid"></i>
+                </div>
+                <div class="__line">
+                    <span class="key">Összes bejegyzés:</span>
+                    <span class="value bg-blue text-white">{{allTestimonials}}</span>
+                </div>
+                <div class="__line">
+                    <span class="key">Moderált bejegyzések:</span>
+                    <span class="value bg-blue text-white">{{moderatedTestimonials}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

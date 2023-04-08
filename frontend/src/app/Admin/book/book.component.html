@@ -1,0 +1,106 @@
+<div class="sticky-filter">
+    <div class="inner justify-content-between">
+        <span class="action d-inline-flex align-items-center">
+            <span class="d-inline-block d-flex justify-content-end align-items-center">
+                <span (click)="openNew()" class="btn-action btn-new d-inline-block me-2"
+                      matTooltip="Új tétel létrehozása"
+                      matTooltipPosition="right"
+                      matTooltipClass="">
+                </span>
+            </span>
+        </span>
+        <span class="d-inline-block d-flex justify-content-end align-items-center">
+                <div class="search">
+                    <span (click)="search()" class="btn-search d-inline-block"></span>
+                    <input [(ngModel)]="params.searchValue" (keyup.enter)="search()" type="text" placeholder="Keresés...">
+                    <span *ngIf="isSearch" (click)="searchReset()" class="btn-reset d-inline-block"></span>
+                </div>
+        </span>
+    </div>
+    <div class="sticky-filter-cover d-none"></div>
+</div>
+
+<div id="cover" class="d-none"></div>
+
+<app-error-modal></app-error-modal>
+<app-delete-modal [name]="selectedItem?.name" (deleteEventEmitter)="destroy($event)" (closeEventEmitter)="closeDeleteModal()"></app-delete-modal>
+
+<app-book-form
+    *ngIf="showFormComponent"
+    [selectedItem]="selectedItem"
+    (errorEventEmitter)="openErrorModal($event)"
+    (closeEventEmitter)="closeNew($event)"></app-book-form>
+
+<!--<app-book-details *ngIf="showDetailsComponent" [selectedItem]="selectedItem"-->
+<!--                   (closeEventEmitter)="closeDetails($event)"></app-book-details>-->
+
+<div class="admin-container pt-3">
+    <table class="table table-striped admin-table">
+        <thead>
+        <tr class="brd">
+            <th>ID</th>
+            <th>Cím</th>
+            <th>Szerző</th>
+            <th>Kiadó</th>
+            <th>Kiadás éve</th>
+            <th>ISBN</th>
+            <th>Oldalak száma</th>
+            <th>Példányszám</th>
+            <th>Létrehozva</th>
+            <th>Módosítva</th>
+            <th colspan="2" class="text-center">Műveletek</th>
+        </tr>
+        <tr class="spacer"></tr>
+        </thead>
+
+        <tbody class="bg-white-">
+        <tr *ngFor="let row of mainCollection">
+            <td>{{ row.id }}</td>
+            <td>{{ row.title }}</td>
+            <td>{{ row.authors }}</td>
+            <td>{{ row.publisher }}</td>
+            <td>{{ row.published }}</td>
+            <td>{{ row.isbn_code }}</td>
+            <td>{{ row.number_of_page }}</td>
+            <td>{{ row.in_stock }}</td>
+            <td>{{ row.created_at }}</td>
+            <td>{{ row.updated_at }}</td>
+            <td class="text-center">
+                <span class="btn-action table-btn-edit d-inline-block" matTooltip="Tétel szerkesztése"
+                      matTooltipPosition="left" matTooltipClass="" (click)="openEdit(row.id, row.title)"></span>
+            </td>
+
+<!--            <td class="text-center">-->
+<!--                <span class="btn-action table-btn-open d-inline-block" matTooltip="Részletek megtekintése"-->
+<!--                      matTooltipPosition="left" matTooltipClass="" (click)="openDetails(row.id, row.title)"></span>-->
+<!--            </td>-->
+
+            <td class="text-center">
+                <span *ngIf="row.can_delete" class="btn-action table-btn-delete d-inline-block" matTooltip="Tétel törlése"
+                      matTooltipPosition="left" matTooltipClass="" (click)="openDeleteModal(row.id, row.title)"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="sticky-footer">
+        <div class="left-side"></div>
+        <div class="right-side">
+            <div class="left">
+                <span class="me-2 __text">Megjelenítve: </span>
+                <span>
+                    <select [(ngModel)]="params.perPage" (ngModelChange)="perPageOnChange($event)" class="form-select">
+                        <option *ngFor="let page of params.pages">{{page}}</option>
+                    </select>
+                </span>
+                <span *ngIf="total !== null" class="ms-3 __total">Össz: {{ total }}</span>
+            </div>
+            <div class="pager-container">
+                <app-pagination [links]="links" (paginateEventEmitter)="paginate($event)"></app-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

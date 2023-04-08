@@ -1,0 +1,186 @@
+@import 'variables';
+
+html, body {
+    font-family: $font-family-roboto;
+    margin: 0;
+    color: $font-color-dark;
+    height: 100%;
+    scroll-behavior: auto !important;
+    background-color: #ece5db !important;
+}
+
+*,
+*::before,
+*::after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+a:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    list-style-type: none;
+}
+
+main {
+    position: relative;
+    display: block;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+#content {
+    width: 100%;
+    padding: 0;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.front-container {
+    min-height: calc(100vh - 270px);
+    //background-color: #ece5db;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    .row {
+        flex: 1;
+        display: flex;
+        align-items: stretch;
+
+        .list-group {
+            --bs-list-group-border-color: #b0bec5 !important;
+            border-radius: 5px;
+        }
+
+        .action-container {
+            border: 1px solid #b0bec5;
+            border-radius: 5px;
+            padding: 18px;
+            background-color: white;
+
+            .page-title {
+                color: #3e5064;
+                font-size: 18px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .card-container-login {
+        width: 400px;
+        max-width: 500px;
+        padding: 0 !important;
+
+        .card-header {
+            margin-bottom: 0;
+            color: white;
+            background-color: #3e5064;
+            border-bottom: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 0;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 1.1em
+        }
+
+        .btn-login {
+            appearance: none;
+            background-color: #3e5064;
+            border: 2px solid #3e5064;
+            border-radius: 6px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: normal;
+            margin: 0;
+            min-width: 0;
+            outline: none;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            width: 100%;
+            will-change: transform;
+        }
+
+        .btn-login:disabled {
+            pointer-events: none;
+        }
+
+        .btn-login:hover {
+            box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+            transform: translateY(-2px);
+        }
+
+        .btn-login:active {
+            box-shadow: none;
+            transform: translateY(0);
+        }
+    }
+}
+
+@media (min-width: 1600px) {
+    .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+        max-width: 1520px !important;
+    }
+}
+
+#uiCover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 25;
+    background-color: rgba(255, 255, 255, .3);
+    background-image: url("../assets/images/loading-ui.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.wish-list {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    border: none;
+    background-image: url('../assets/images/front/suit-heart.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+}
+.wish-list:hover {
+    background-image: url('../assets/images/front/suit-heart-fill.svg');
+}
+.active-wishlist {
+    background-image: url('../assets/images/front/suit-heart-fill.svg');
+}
+.empty {
+    opacity: .1;
+}

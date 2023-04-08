@@ -1,0 +1,67 @@
+<app-error-modal></app-error-modal>
+<div class="admin-container pt-3">
+    <div class="action-panel p-3">
+        <div class="form-content my-4">
+            <form [formGroup]="form" class="d-flex flex-column" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="fill">
+                    <mat-label>Cég publikus elnevezése</mat-label>
+                    <input matInput formControlName="company_name" type="text">
+                    <mat-error *ngIf="form.controls['company_name'].hasError('required')">Kötelező mező
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Cég publikus címe</mat-label>
+                    <input matInput formControlName="company_address" type="text">
+                    <mat-error *ngIf="form.controls['company_address'].hasError('required')">Kötelező mező
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Cég publikus email címe</mat-label>
+                    <input matInput formControlName="company_email" type="text">
+                    <mat-error *ngIf="form.controls['company_email'].hasError('required')">Kötelező mező
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Cég publikus telefonszáma</mat-label>
+                    <input matInput formControlName="company_phone_number" type="text">
+                    <mat-error *ngIf="form.controls['company_phone_number'].hasError('required')">Kötelező mező
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Cégvezető</mat-label>
+                    <input matInput formControlName="company_manager" type="text">
+                    <mat-error *ngIf="form.controls['company_manager'].hasError('required')">Kötelező mező
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Adószám</mat-label>
+                    <input matInput formControlName="company_tax_number" type="text">
+                    <mat-error *ngIf="form.controls['company_tax_number'].hasError('required')">Kötelező mező
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Számlavezető bank</mat-label>
+                    <input matInput formControlName="bank" type="text">
+                    <mat-error *ngIf="form.controls['bank'].hasError('required')">Kötelező mező
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Bankszámlaszám</mat-label>
+                    <input matInput formControlName="bank_account_number" type="text">
+                    <mat-error *ngIf="form.controls['bank_account_number'].hasError('required')">Kötelező mező.
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" class="text-white mt-2">Adatok módosítása</button>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="add-new-item">
+    <div class="inner">
+        <div class="header">
+            <span *ngIf="selectedItem.id === null" class="title">Új típus létrehozása</span>
+            <span *ngIf="selectedItem.id" class="title">Szerkesztés: {{ selectedItem.name }}</span>
+            <span class="close" (click)="close()"></span>
+        </div>
+        <div class="content">
+            <form [formGroup]="form" class="d-flex flex-column" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="fill">
+                    <mat-label>Könyvek száma</mat-label>
+                    <input matInput formControlName="book_number" type="number">
+                    <mat-error *ngIf="form.controls['book_number'].hasError('required')">A könyvek száma megadása kötelező.</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Leírás</mat-label>
+                    <textarea matInput formControlName="description"></textarea>
+                    <mat-error *ngIf="form.controls['description'].hasError('required')">A leírás megadása kötelező.</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Ár</mat-label>
+                    <input matInput formControlName="price" type="text">
+                    <mat-error *ngIf="form.controls['price'].hasError('required')">Az ár megadása kötelező.</mat-error>
+                </mat-form-field>
+
+
+
+                <button *ngIf="selectedItem.id === null" type="submit" mat-raised-button color="primary" class="text-white mt-2">Mentés</button>
+                <button *ngIf="selectedItem.id !== null" mat-raised-button color="primary" class="text-white mt-2">Módosítás</button>
+
+            </form>
+        </div>
+    </div>
+</div>

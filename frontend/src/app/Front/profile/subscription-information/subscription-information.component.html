@@ -1,0 +1,86 @@
+<div class="page-title w-100 text-center mb-2">Előfizetési információk</div>
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table mt-3">
+            <thead>
+            <tr>
+                <th>Leírás</th>
+                <th class="text-center">Könyvek száma</th>
+                <th class="text-end">Előfizetés/hó</th>
+                <th class="text-center">Választott csomag</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of subscriptions">
+                <td>{{item.description}}</td>
+                <td class="text-center">{{item.book_number}}</td>
+                <td class="text-end">{{item.price}} Ft</td>
+                <td *ngIf="item.id === activeSubscription" class="text-center">
+                    <mat-icon color="primary" matTooltip="Választott csomag"
+                              matTooltipPosition="above" matTooltipClass="">radio_button_checked</mat-icon>
+                </td>
+                <td *ngIf="item.id !== activeSubscription" class="text-center">
+                    <mat-icon (click)="setActive(item.id)" role="button" matTooltip="Beállítás aktív előfizetési típusnak. Csak a jelenlegi előfizetés lejárta után lesz figyelembe véve."
+                              matTooltipPosition="above" matTooltipClass="">radio_button_unchecked</mat-icon>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+    <div class="col-lg-6 pt-3">
+        <table class="table mt-3">
+            <tbody>
+            <tr>
+                <th>Beállított előfizetés</th>
+                <td>{{userData.subscription_type?.description}}</td>
+            </tr>
+            <tr>
+                <th>Előfizetés érvényessége
+                    <span class="d-inline-block ms-2" matTooltip="Az utolsó fizetés időpontja + egy hónap + öt nap."
+                          matTooltipPosition="above" matTooltipClass="">
+                    <mat-icon color="accent">info</mat-icon>
+                </span>
+                </th>
+                <td>{{subscriptionIsValid}}</td>
+            </tr>
+            <tr>
+                <th>Utolsó fizetés időpontja</th>
+                <td>{{userData.last_payment_date.substring(0, 10)}}</td>
+            </tr>
+
+            <tr>
+                <th>Előfizetési azonosító:</th>
+                <td>{{userData.payment_id}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-6 pt-3">
+        <table class="table mt-3">
+            <thead>
+            <tr><th colspan="2">Banki átutalás adatai:</th></tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Számlavezető bank</th>
+                <td>{{systemSettings.bank}}</td>
+            </tr>
+            <tr>
+                <th>Számlaszám</th>
+                <td>{{systemSettings.bank_account_number}}</td>
+            </tr>
+            <tr>
+                <th>Fizetendő összeg</th>
+                <td>{{userData.subscription_type?.price}} Ft</td>
+            </tr>
+
+            <tr>
+                <th>Megjegyzés:</th>
+                <td>{{userData.payment_id}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>

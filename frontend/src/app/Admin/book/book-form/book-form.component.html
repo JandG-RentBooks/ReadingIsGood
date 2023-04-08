@@ -1,0 +1,200 @@
+<div class="add-new-item-w100">
+    <app-images
+        *ngIf="showImageComponent"
+        (selectImageEventEmitter)="selectImages($event)"
+        (closeImageEventEmitter)="closeImages()"
+    ></app-images>
+    <div class="inner">
+        <div class="header mb-2">
+            <span *ngIf="selectedItem.id === null" class="title">Új könyv létrehozása</span>
+            <span *ngIf="selectedItem.id" class="title">Szerkesztés: {{ selectedItem.name }}</span>
+            <span class="close" (click)="close()"></span>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-6 __form">
+
+                    <form [formGroup]="form" class="d-flex flex-column" (ngSubmit)="onSubmit()">
+                        <mat-form-field appearance="fill">
+                            <mat-label>A könyv címe</mat-label>
+                            <input matInput formControlName="title" type="text">
+                            <mat-error *ngIf="form.controls['title'].hasError('required')">A cím megadása kötelező.
+                            </mat-error>
+                            <mat-error *ngIf="form.controls['title'].hasError('minlength')">A cím legalább 2 karakter.
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Leírás</mat-label>
+                            <textarea matInput formControlName="description"></textarea>
+                            <mat-error *ngIf="form.controls['description'].hasError('required')">A leírás megadása
+                                kötelező.
+                            </mat-error>
+                            <mat-error *ngIf="form.controls['description'].hasError('minlength')">A leírás legalább 2
+                                karakter.
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Szerző</mat-label>
+                            <mat-select formControlName="authors" multiple (selectionChange)="setAuthor()">
+                                <mat-option *ngFor="let item of authorList" [value]="item.id">
+                                    {{item.name}} ({{item.birthday}})
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Kiadó</mat-label>
+                            <mat-select formControlName="publisher_id" (selectionChange)="setPublisher()">
+                                <mat-option *ngFor="let item of publisherList" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>A kiadás éve</mat-label>
+                            <input matInput formControlName="published" type="text">
+                            <mat-error *ngIf="form.controls['published'].hasError('required')">Kötelező mező.
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>ISBN kód</mat-label>
+                            <input matInput formControlName="isbn_code" type="text">
+                            <mat-error *ngIf="form.controls['isbn_code'].hasError('required')">Kötelező mező.
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Oldalak száma</mat-label>
+                            <input matInput formControlName="number_of_page" type="number">
+                            <mat-error *ngIf="form.controls['number_of_page'].hasError('required')">Kötelező mező.
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Példányszám</mat-label>
+                            <input matInput formControlName="in_stock" type="number">
+                            <mat-error *ngIf="form.controls['in_stock'].hasError('required')">Kötelező mező.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Nyelv</mat-label>
+                            <mat-select formControlName="language_id" (selectionChange)="setLanguage()">
+                                <mat-option *ngFor="let item of languageList" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Borító</mat-label>
+                            <mat-select formControlName="cover_type_id" (selectionChange)="setCoverType()">
+                                <mat-option *ngFor="let item of coverTypeList" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Főkategória kiválasztása</mat-label>
+                            <mat-select formControlName="mainCategory" (selectionChange)="fillSubCategoriesSet()">
+                                <mat-option *ngFor="let item of categoryList" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field *ngIf="subCategoryList.length" appearance="fill">
+                            <mat-label>Kategória</mat-label>
+                            <mat-select formControlName="categories" multiple (selectionChange)="setCategories()">
+                                <mat-option *ngFor="let item of subCategoryList" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Címkék</mat-label>
+                            <mat-select formControlName="labels" multiple (selectionChange)="setLabels()">
+                                <mat-option *ngFor="let item of labelList" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-checkbox formControlName="is_new">Újnak jelölve</mat-checkbox>
+
+
+                        <button *ngIf="selectedItem.id === null" type="submit" mat-raised-button color="primary"
+                                class="text-white mt-3">Mentés
+                        </button>
+                        <button *ngIf="selectedItem.id !== null" mat-raised-button color="primary"
+                                class="text-white mt-3">Módosítás
+                        </button>
+                    </form>
+                </div>
+                <div *ngIf="form.value.title" class="col-md-6 __preview">
+                    <div class="top">
+                        <div class="image" [style]="imagePath ?'background-image:url('+imageUrl+imagePath+')' : ''">
+                            <span class="btnOpenImage d-block">
+                                <button (click)="openImages()" mat-mini-fab color="primary">
+                                    <mat-icon class="text-white">add_photo_alternate</mat-icon>
+                                </button>
+                            </span>
+                        </div>
+                        <div class="data ms-3">
+                            <span class="title mb-2">{{form.value.title}}</span>
+                            <span class="author">{{strAuthor}}</span>
+                            <table class="table table-striped mt-3">
+                                <tbody>
+                                <tr>
+                                    <th>Kiadó:</th>
+                                    <td>{{strPublisher}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Kiadás éve:</th>
+                                    <td>{{form.value.published}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nyelv:</th>
+                                    <td>{{strLanguage}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Oldalak száma:</th>
+                                    <td>{{form.value.number_of_page}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Borító:</th>
+                                    <td>{{strCoverType}}</td>
+                                </tr>
+                                <tr>
+                                    <th>ISBN:</th>
+                                    <td>{{form.value.isbn_code}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Kategóriák:</th>
+                                    <td>
+                                        <button class="label m-1" *ngFor="let item of strCategories"
+                                                mat-flat-button>{{item}}</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Cimkék:</th>
+                                    <td>
+                                        <button class="label m-1" *ngFor="let item of strLabels"
+                                                mat-flat-button>{{item}}</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="description mt-3">{{form.value.description}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

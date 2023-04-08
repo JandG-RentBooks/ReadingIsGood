@@ -1,0 +1,21 @@
+<footer *ngIf="!showAdminFooter" class="front-footer">
+  <div class="container h-100 d-flex flex-wrap justify-content-between align-items-center">
+      <span class="mb-3 mb-md-0 text-muted">&copy; {{dateCopyright}} {{company}}</span>
+
+      <ul class="nav justify-content-center">
+          <li class="nav-item"><a routerLink="" class="nav-link px-2 text-muted">Címlap</a></li>
+          <li class="nav-item"><a routerLink="books" class="nav-link px-2 text-muted">Könyvek</a></li>
+          <li class="nav-item"><a routerLink="subscription" class="nav-link px-2 text-muted">Előfizetés</a></li>
+          <li class="nav-item"><a routerLink="faq" class="nav-link px-2 text-muted">Gyik</a></li>
+          <li class="nav-item"><a routerLink="about-as" class="nav-link px-2 text-muted">Rólunk</a></li>
+          <li class="nav-item"><a routerLink="contact" class="nav-link px-2 text-muted">Kapcsolat</a></li>
+      </ul>
+
+      <ul class="nav justify-content-end">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted"><i class="bi bi-facebook"></i></a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted"><i class="bi bi-instagram"></i></a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted"><i class="bi bi-twitter"></i></a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted"><i class="bi bi-youtube"></i></a></li>
+      </ul>
+  </div>
+</footer>

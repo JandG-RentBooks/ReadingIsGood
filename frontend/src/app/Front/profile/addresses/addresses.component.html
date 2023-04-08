@@ -1,0 +1,65 @@
+<div class="page-title w-100 text-center mb-2">Szállítási címek</div>
+<div class="row">
+    <div class="col-lg-6 pt-3">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Cím</th>
+                <th class="text-center">Aktív</th>
+                <th class="text-center">Szerkesztés</th>
+                <th class="text-center">Törlés</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let address of shippingAddresses">
+                <td>{{address.zip_code}} {{address.city}}, {{address.address}}</td>
+                <td *ngIf="address.id === activeAddress" class="text-center">
+                    <mat-icon color="primary" matTooltip="Aktív szállítási cím"
+                              matTooltipPosition="above" matTooltipClass="">radio_button_checked</mat-icon>
+                </td>
+                <td *ngIf="address.id !== activeAddress" class="text-center">
+                    <mat-icon (click)="setActive(address.id)" role="button" matTooltip="Beállítás aktív szállítási címnek"
+                              matTooltipPosition="above" matTooltipClass="">radio_button_unchecked</mat-icon>
+                </td>
+                <td class="text-center"><mat-icon (click)="editAddress(address.id)" role="button">edit</mat-icon></td>
+                <td class="text-center"><mat-icon (click)="remove(address.id)" color="warn" role="button">delete</mat-icon></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-6 pt-3">
+        <div class="w-100 d-flex align-items-stretch justify-content-between fw-bold mb-3">
+            <span *ngIf="isEdit">Szállítási cím szerkesztése</span>
+            <span *ngIf="!isEdit">Új szállítási cím létrehozása</span>
+            <mat-icon *ngIf="isEdit" (click)="reset()" color="accent" role="button" matTooltip="Új szállítási cím hozzáadása"
+                      matTooltipPosition="above" matTooltipClass="">cancel</mat-icon>
+        </div>
+
+        <form [formGroup]="formAddresses" class="d-flex flex-column" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+                <mat-label>Irányítószám</mat-label>
+                <input matInput formControlName="zip_code" type="text">
+                <mat-error *ngIf="formAddresses.controls['zip_code'].hasError('required')">Az irányítószám megadása kötelező.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Település</mat-label>
+                <input matInput formControlName="city" type="text">
+                <mat-error *ngIf="formAddresses.controls['city'].hasError('required')">A település megadása kötelező.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Cím</mat-label>
+                <input matInput formControlName="address" type="text">
+                <mat-error *ngIf="formAddresses.controls['address'].hasError('required')">A cím megadása kötelező.</mat-error>
+            </mat-form-field>
+
+            <button *ngIf="isEdit" type="submit" mat-raised-button color="accent" class="btn-login mt-3">
+                Szállítási cím módosítása
+            </button>
+            <button *ngIf="!isEdit" type="submit" mat-raised-button color="accent" class="btn-login mt-3">
+                Új szállítási cím hozzáadása
+            </button>
+        </form>
+    </div>
+</div>
