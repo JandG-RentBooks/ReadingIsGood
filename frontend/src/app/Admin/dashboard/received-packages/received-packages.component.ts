@@ -46,6 +46,7 @@ export class ReceivedPackagesComponent {
     search(): void {
         if (this.searchValue.length === 12) {
             this.getLandingByShippingToken()
+            
         }
     }
 
