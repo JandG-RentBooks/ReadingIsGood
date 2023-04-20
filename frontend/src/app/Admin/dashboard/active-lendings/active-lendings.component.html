@@ -1,7 +1,7 @@
 
 <app-active-lendings-details *ngIf="showDetailsComponent" [selectedItem]="selectedItem"
                     (closeEventEmitter)="closeDetails($event)"></app-active-lendings-details>
-<table class="table table-striped admin-table mt-4">
+<table *ngIf="!showDetailsComponent" class="table table-striped admin-table mt-4">
     <thead>
     <tr class="brd">
         <th>ID</th>
@@ -17,7 +17,7 @@
     </thead>
 
     <tbody class="bg-white-">
-    <tr *ngIf="mainCollection.length === 0">
+    <tr *ngIf="mainCollection.length === 0 && isDone">
         <td colspan="8">Nincs megjelíthető tétel</td>
     </tr>
     <tr *ngFor="let row of mainCollection">

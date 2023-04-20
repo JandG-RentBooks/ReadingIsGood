@@ -164,4 +164,14 @@ export class ProfileService {
         );
     }
 
+    checkUserData(): Observable<any> {
+        this.httpOptions.params = {}
+        return this.http.get(
+            API_URL + `profile/check`,
+            this.httpOptions
+        );
+    }
+
+
+
 }

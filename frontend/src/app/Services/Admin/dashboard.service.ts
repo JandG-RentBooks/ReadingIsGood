@@ -138,13 +138,13 @@ export class DashboardService {
         );
     }
 
-    addBookToLending(data: any): Observable<any> {
+    addBooksToLending(data: any): Observable<any> {
         this.httpOptions.params = {}
         return this.http.post(
             API_URL + 'admin/dashboard/lending/add-book',
             {
                 lending_id: data.lending_id,
-                book_id: data.book_id
+                books: data.books
             },
             this.httpOptions
         );
@@ -206,6 +206,17 @@ export class DashboardService {
             {
                 user_id: data.user_id,
                 shipping_token: data.shipping_token
+            },
+            this.httpOptions
+        );
+    }
+
+    sendBankTransferEmail(data: any): Observable<any> {
+        this.httpOptions.params = {}
+        return this.http.post(
+            API_URL + 'admin/dashboard/mail/bank-transfer',
+            {
+                user_id: data.user_id
             },
             this.httpOptions
         );
@@ -320,6 +331,14 @@ export class DashboardService {
                 id: id,
                 content: content,
             },
+            this.httpOptions
+        );
+    }
+
+    getBadgeData(): Observable<any> {
+        this.httpOptions.params = {}
+        return this.http.get(
+            API_URL + 'admin/dashboard/badge-data',
             this.httpOptions
         );
     }

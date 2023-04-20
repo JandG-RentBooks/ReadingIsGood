@@ -20,7 +20,7 @@
     </thead>
 
     <tbody class="bg-white-">
-    <tr *ngIf="mainCollection.length === 0">
+    <tr *ngIf="mainCollection.length === 0 && isDone">
         <td colspan="7">Nincs megjelíthető tétel</td>
     </tr>
     <tr *ngFor="let row of mainCollection">

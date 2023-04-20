@@ -35,11 +35,10 @@ use App\Http\Controllers\Auth\RegisterController;
 Route::controller(RegisterController::class)->group(function () {
     Route::get('register', 'index');
     Route::post('register', 'register');
+    Route::post('user-verify', 'userVerify');
     Route::post('login', 'login');
-//    Route::get('roles', 'roles');
-//    Route::get('address', 'address');
-//    Route::get('book-insert', 'book');
-//    Route::get('wishlist', 'wishlist');
+    Route::post('password-reset', 'passwordReset');
+    Route::post('new-password', 'newPassword');
 });
 
 //Levelezés
@@ -56,6 +55,7 @@ Route::get('book-categories', [\App\Http\Controllers\BookController::class, 'get
 Route::get('company', [HomeController::class, 'getCompany']);
 Route::get('references', [HomeController::class, 'getReferences']);
 Route::get('page-content', [HomeController::class, 'getPageContent']);
+Route::get('contact-data', [HomeController::class, 'getContactData']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [RegisterController::class, 'logout']);
@@ -107,8 +107,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('dashboard/reference', [DashboardController::class, 'getPageContent']);
         Route::patch('dashboard/reference/update', [DashboardController::class, 'updatePageContent']);
 
+        Route::get('dashboard/badge-data', [DashboardController::class, 'getBadgeData']);
+
         Route::controller(MailController::class)->group(function () {
             Route::post('dashboard/mail/new-lending', 'newLending');
+            Route::post('dashboard/mail/bank-transfer', 'bankTransfer');
         });
 
 
@@ -140,6 +143,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('profile/wishlist', [ProfileController::class, 'getWishlist']);
         Route::patch('profile/wishlist', [ProfileController::class, 'sortWishlist']);
         Route::post('profile/wishlist/delete', [ProfileController::class, 'removeWisList']);
+
+        //User Data Check
+        Route::get('profile/check', [ProfileController::class, 'dataCheck']);
 
         //Book-Wishlist
         Route::post('books/{book}/wishlist', [\App\Http\Controllers\BookController::class, 'changeWisListStatus']);

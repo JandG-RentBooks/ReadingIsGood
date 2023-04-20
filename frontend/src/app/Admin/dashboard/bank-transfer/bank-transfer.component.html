@@ -26,7 +26,7 @@
 </mat-accordion>
 
 <div *ngIf="showSuccessMessage" class="_alert d-flex w-100 align-items-center justify-content-between p-3 mt-4">
-    Az utalási tétel sikeresen beéllítva. <mat-icon color="accent" role="button" (click)="showSuccessMessage = false">close</mat-icon>
+    Az utalási tétel sikeresen beállítva. <mat-icon color="accent" role="button" (click)="showSuccessMessage = false">close</mat-icon>
 </div>
 
 <div class="w-100 mt-4">
@@ -82,20 +82,25 @@
             <div class="_bordered h-100 bank-transfer-date d-flex flex-column">
                 <h4 class="dashboard-page-subtitle w-100 text-center mb-3">Beérkezett utalás beállítása</h4>
                 <div class="date-form">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Válasszon időpontot</mat-label>
-                        <input matInput
-                               [matDatepicker]="picker"
-                               [(ngModel)]="selectedDate" disabled>
-                        <mat-datepicker-toggle matIconSuffix [for]="picker"  [disabled]="false"></mat-datepicker-toggle>
-                        <mat-datepicker #picker  [disabled]="false"></mat-datepicker>
-                    </mat-form-field>
+                    <div class="d-flex justify-content-center">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Válasszon időpontot</mat-label>
+                            <input matInput
+                                   [matDatepicker]="picker"
+                                   [(ngModel)]="selectedDate" disabled>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"  [disabled]="false"></mat-datepicker-toggle>
+                            <mat-datepicker #picker  [disabled]="false"></mat-datepicker>
+                        </mat-form-field>
 
-                    <button type="button"
-                            [disabled]="!selectedDate"
-                            (click)="updateLastPaymentDate()"
-                            class="ms-3 px-2 text-white mb-3"
-                            mat-raised-button color="primary">Időpont beállítása</button>
+                        <button type="button"
+                                [disabled]="(!selectedDate || !isConfirmed)"
+                                (click)="updateLastPaymentDate()"
+                                class="ms-3 px-2 text-white mt-2"
+                                mat-raised-button color="primary">Időpont beállítása</button>
+                    </div>
+
+                    <mat-slide-toggle color="warn" [(ngModel)]="isConfirmed">Beállítom az időpontot</mat-slide-toggle>
+
                 </div>
             </div>
         </div>

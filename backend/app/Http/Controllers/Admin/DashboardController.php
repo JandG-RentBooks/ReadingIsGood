@@ -157,8 +157,8 @@ class DashboardController extends Controller
     {
         $this->accessEmployee();
 
-        $query1 = User::query();
-        $query1 = $query1->with('subscription_type')
+        $query = User::query();
+        $query = $query->with('subscription_type')
             ->with('active_shipping_address')
             ->with('lendings')
             ->with('wishlist')
@@ -167,27 +167,14 @@ class DashboardController extends Controller
             ->whereDate('last_payment_date', '>=', now()->subMonth()->subDays(5))
             ->whereDoesntHave('lendings')
             ->whereHas('wishlist')
+            ->where('is_active_lending', '=', 0)
             ->orderBy('created_at');
 
-        $query2 = User::query();
-        $query2 = $query2->with('subscription_type')
-            ->with('active_shipping_address')
-            ->with('lendings')
-            ->with('wishlist')
-            ->whereNotNull('subscription_type_id')
-            ->whereNotNull('active_shipping_address_id')
-            ->whereDate('last_payment_date', '>=', now()->subMonth()->subDays(5))
-            ->whereRelation('lendings', 'state', '=', 4)
-            ->whereHas('wishlist')
-            ->orderBy('created_at');
-
-        $query2 = $query2->union($query1);
-
-        $lendings = $query2->paginate($this->getPageLength($request));
+        $users = $query->paginate($this->getPageLength($request));
 
         $result = [
-            'items' => $lendings,
-            'pagination' => $this->getPaginationForJson($lendings),
+            'items' => $users,
+            'pagination' => $this->getPaginationForJson($users),
         ];
 
         return response()->json($result, 200);
@@ -234,11 +221,11 @@ class DashboardController extends Controller
             return response()->json(['success' => false], 200);
         }
         $token = new Token();
-        $shipping_token = $token->Unique('lendings', 'shipping_token', 12);
+        $shipping_token = $token->UniqueNumber('lendings', 'shipping_token', 12);
         $lending = Lending::create([
             'user_id' => $request->input('user_id'),
             'shipping_token' => $shipping_token,
-            'state' => 0,
+            'state' => 2,
             'created_by' => auth()->user()->id,
         ]);
 
@@ -253,20 +240,24 @@ class DashboardController extends Controller
     {
         $this->accessEmployee();
 
-        $book = Book::find($request->input('book_id'));
+        $books = $request->input('books');
         $lending = Lending::find($request->input('lending_id'));
 
-        if (!$book || !$lending) {
+        if (!$lending) {
             return response()->json(['success' => false], 200);
         }
-        if ($book->available > 0) {
-            LendingBook::create([
-                'lending_id' => $request->input('lending_id'),
-                'book_id' => $request->input('book_id'),
-                'is_back' => 0,
-            ]);
-            $book->available = $book->available - 1;
-            $book->save();
+        foreach ($books as $book_id) {
+            $book = Book::find($book_id);
+
+            if ($book && $book->available > 0) {
+                LendingBook::create([
+                    'lending_id' => $request->input('lending_id'),
+                    'book_id' => $book_id,
+                    'is_back' => 0,
+                ]);
+                $book->available = $book->available - 1;
+                $book->save();
+            }
         }
         return response()->json(['success' => true], 200);
     }
@@ -312,7 +303,7 @@ class DashboardController extends Controller
 
         $books = $request->input('books');
 
-        foreach($books as $book){
+        foreach ($books as $book) {
             Wishlist::where('user_id', $user->id)->where('book_id', $book)->delete();
         }
 
@@ -327,7 +318,7 @@ class DashboardController extends Controller
     {
         $this->accessEmployee();
 
-        $lending = Lending::find($request->input('lending_id'));
+        $lending = Lending::with('user')->where('id', $request->input('lending_id'))->first();
 
         if (!$lending) {
             return response()->json(['success' => false], 200);
@@ -335,6 +326,26 @@ class DashboardController extends Controller
 
         $lending->state = $request->input('state');
         $lending->save();
+
+        if ($request->input('state') == 3) {
+            $this->updateUserState($lending->user->id);
+        }
+
+        return response()->json(['success' => true], 200);
+    }
+
+    /**
+     * Felhasználónak van aktív kölcsönzése
+     * @param $user
+     * @return JsonResponse
+     */
+    public function updateUserState($user_id): JsonResponse
+    {
+        $this->accessEmployee();
+
+        $user = User::find($user_id);
+        $user->is_active_lending = 1;
+        $user->save();
 
         return response()->json(['success' => true], 200);
     }
@@ -376,13 +387,20 @@ class DashboardController extends Controller
         $this->accessEmployee();
 
         $data = Lending::with('books')
+            ->with('books.authors')
+            ->with('books.language')
+            ->with('books.publisher')
             ->with('user')
-            ->where('shipping_token', $request->input('shipping_token'))->get();
+            ->with('user.active_shipping_address')
+            ->with('createdBy')
+            ->where('shipping_token', $request->input('shipping_token'))
+            ->where('state', '=', 3)->first();
 
-        return response()->json($data, 200);
+        return response()->json(['lending' => is_null($data) ? null : $data], 200);
     }
 
     /**
+     * Könyv selejtezése
      * @param Request $request
      * @return JsonResponse
      */
@@ -400,7 +418,7 @@ class DashboardController extends Controller
         $lendingBook = LendingBook::where([
             ['lending_id', $request->input('lending_id')],
             ['book_id', $request->input('book_id')],
-        ]);
+        ])->first();
 
         $lendingBook->is_back = 1;
         $lendingBook->save();
@@ -409,6 +427,7 @@ class DashboardController extends Controller
     }
 
     /**
+     * Könyv visszavételezése
      * @param Request $request
      * @return JsonResponse
      */
@@ -426,7 +445,7 @@ class DashboardController extends Controller
         $lendingBook = LendingBook::where([
             ['lending_id', $request->input('lending_id')],
             ['book_id', $request->input('book_id')],
-        ]);
+        ])->first();
 
         $lendingBook->is_back = 1;
         $lendingBook->save();
@@ -445,13 +464,18 @@ class DashboardController extends Controller
     {
         $this->accessEmployee();
 
-        $lending = Lending::find($request->input('lending_id'));
+        $lending = Lending::with('user')->where('id', $request->input('lending_id'))->first();
 
         if (!$lending) {
             return response()->json(['success' => false], 200);
         }
 
         $lending->state = 4;
+        $lending->save();
+
+        $user = User::find($lending->user->id);
+        $user->is_active_lending = 0;
+        $user->save();
 
         return response()->json(['success' => true], 200);
     }
@@ -550,6 +574,21 @@ class DashboardController extends Controller
         $content->save();
 
         return response()->json(['success' => true], 200);
+    }
+
+    public function getBadgeData(Request $request)
+    {
+        $this->accessEmployee();
+
+        $forPackagesNum = Lending::where('state', '=', 2)->count();
+        $testimonialsCommentNum = Testimonial::where('checked', '=', 0)->count();
+
+        $result = [
+            'forPackagesNum' => $forPackagesNum,
+            'testimonialsCommentNum' => $testimonialsCommentNum,
+        ];
+
+        return response()->json($result, 200);
     }
 
 }

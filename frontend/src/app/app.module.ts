@@ -110,6 +110,8 @@ import { NgxEditorModule } from 'ngx-editor';
 import { schema } from 'ngx-editor/schema';
 import { SystemSettingsComponent } from './Admin/system-settings/system-settings.component';
 import {MatBadgeModule} from "@angular/material/badge";
+import { RecaivedPackagesDetailsComponent } from './Admin/dashboard/received-packages/recaived-packages-details/recaived-packages-details.component';
+import { UserVerifyComponent } from './Front/user-verify/user-verify.component';
 
 @NgModule({
     declarations: [
@@ -189,6 +191,8 @@ import {MatBadgeModule} from "@angular/material/badge";
         TestimonialsModerateComponent,
         PagesComponent,
         SystemSettingsComponent,
+        RecaivedPackagesDetailsComponent,
+        UserVerifyComponent,
     ],
     imports: [
         BrowserModule,

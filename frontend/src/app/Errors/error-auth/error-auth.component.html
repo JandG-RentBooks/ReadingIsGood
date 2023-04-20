@@ -1,5 +1,13 @@
-<h1 mat-dialog-title>Lejárt a munkamenet</h1>
-<div mat-dialog-content>A folytatáshoz újra be kell jelentkezni.</div>
-<div mat-dialog-actions>
-    <button mat-button (click)="close()">Bejelentkezés</button>
+<div class="dialog-header">
+    <h5 class="title">Rendszerüzenet</h5>
+    <button type="button"
+            class="close"
+            (click)="close()">
+    </button>
+</div>
+<div mat-dialog-content>
+    Lejárt a munkamenet. A folytatáshoz be kell jelentkezni.
+</div>
+<div mat-dialog-actions class="dialog-footer justify-content-center">
+    <button mat-raised-button color="accent" (click)="close()">Bejelentkezés</button>
 </div>

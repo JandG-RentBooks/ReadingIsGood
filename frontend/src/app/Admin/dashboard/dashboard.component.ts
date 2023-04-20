@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatDrawer} from "@angular/material/sidenav";
 import {DashboardService} from "../../Services/Admin/dashboard.service";
+import {SharedService} from "../../Services/Admin/shared.service";
 
 @Component({
     selector: 'app-dashboard',
@@ -23,12 +24,35 @@ export class DashboardComponent implements OnInit {
 
     pageTitle = ''
 
+    timerIsRun = false
+    forPackagesNum = 0
+    testimonialsCommentNum = 0
+
     @ViewChild('drawer') public drawer: MatDrawer | undefined;
+    @ViewChild('showForPackagingPage') public showForPackagingPage: ElementRef | undefined;
+    @ViewChild('showTestimonialsPage') public showTestimonialsPage: ElementRef | undefined;
 
-    constructor(private dashboardService: DashboardService) {}
+    constructor(private dashboardService: DashboardService, private sharedService: SharedService) {
+        this.timerIsRun = true
+        this.timer()
+    }
 
-    ngOnInit(): void {
+    ngOnInit(): void {}
 
+    setPage(v: string): void {
+        switch (v) {
+            case 'showForPackagingPage':
+                if (this.showForPackagingPage) {
+                    this.showForPackagingPage.nativeElement.click()
+                }
+                break
+
+            case 'showTestimonialsPage':
+                if (this.showTestimonialsPage) {
+                    this.showTestimonialsPage.nativeElement.click()
+                }
+                break
+        }
     }
 
     setVisibility(v: string, e: any): void {
@@ -49,15 +73,40 @@ export class DashboardComponent implements OnInit {
         this.visibilityOptions[v] = true
 
         this.pageTitle = v === 'showFirsPage' ? '' : e.target.innerText
-        this.openSidebar()
+        if (this.isSidebarOpen) {
+            this.openSidebar()
+        }
+
     }
 
     openSidebar(): void {
         const sidebar = document.querySelector('.__dashboard-sidenav')!
-        if(this.drawer){
+        if (this.drawer) {
             this.drawer.toggle().then(r => {
                 this.isSidebarOpen = sidebar.classList.contains('mat-drawer-opened')
             })
+        }
+    }
+
+    getBadgeData(): void {
+        this.dashboardService.getBadgeData().subscribe({
+            next: data => {
+                this.forPackagesNum = data.forPackagesNum
+                this.testimonialsCommentNum = data.testimonialsCommentNum
+            },
+            error: err => {
+
+            }
+        })
+    }
+
+    timer(): void {
+        if (this.timerIsRun) {
+            this.getBadgeData()
+            this.sharedService.sleep(60000).then(() => {
+                    this.timer()
+                }
+            )
         }
     }
 

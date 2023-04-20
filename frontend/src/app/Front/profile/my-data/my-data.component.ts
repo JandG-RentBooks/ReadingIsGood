@@ -53,10 +53,10 @@ export class MyDataComponent {
             return
         }
 
-        this.sharedService.showPostCover()
+        this.sharedService.showUiCover()
         this.profileService.updateUser(this.form.value).subscribe({
             next: data => {
-                this.sharedService.hidePostCover()
+                this.sharedService.hideUiCover()
                 if (data.success) {
                     // @ts-ignore
                     document.querySelector('.toast_-body').innerHTML = this.sharedService.texts.msg_update_success

@@ -103,6 +103,19 @@ class HomeController extends Controller
         return response()->json(SystemSetting::select('company_name')->first(), 200);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+        public function getContactData(Request $request): JsonResponse
+    {
+        return response()->json(SystemSetting::first(), 200);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function getPageContent(Request $request): JsonResponse
     {
         $content = FrontPage::where('reference', '=', $request->get('reference'))->first();

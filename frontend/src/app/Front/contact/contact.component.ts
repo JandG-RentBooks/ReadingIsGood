@@ -8,17 +8,17 @@ import {IndexService} from "../../Services/Front/index.service";
 })
 export class ContactComponent {
 
-    pageContent: any
+    data: any
 
     constructor(private indexService: IndexService) {
-        //this.getPageContent()
+        this.getContactData()
     }
 
-    getPageContent(): void {
-        this.indexService.getPageContent('contact').subscribe({
+    getContactData(): void {
+        this.indexService.getContactData().subscribe({
             next: data => {
                 console.log(data)
-                this.pageContent = data.item.content
+                this.data = data
             },
             error: err => {
             }

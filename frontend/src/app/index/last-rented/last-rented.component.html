@@ -7,8 +7,10 @@
             <p-carousel [value]="books" [numVisible]="4" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
                 <ng-template let-book pTemplate="item">
                     <div class="carousel-item">
-                        <div class="image" [ngStyle]="{ 'background-image': 'url(' + imageUrl+book.file_path + ')'}"></div>
-                        <div class="title mt-2">{{book.title}}</div>
+                        <div class="image" [ngStyle]="{ 'background-image': 'url(' + imageUrl+book.file_path + ')'}">
+                            <a class="__image-link" routerLink="books/{{book.title}}"></a>
+                        </div>
+                        <div class="__title mt-2"><a routerLink="books/{{book.title}}">{{book.title}}</a></div>
                     </div>
                 </ng-template>
             </p-carousel>

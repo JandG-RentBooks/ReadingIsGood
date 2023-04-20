@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
     modalError: any
     subscriptionTypeList: any = []
     isMessage = false
+    isError = false
     hide = true;
 
     form = new FormGroup({
@@ -49,7 +50,6 @@ export class RegisterComponent implements OnInit {
                 this.subscriptionTypeList = data
             },
             error: err => {
-                this.openErrorModal(err)
             }
         });
     }
@@ -58,31 +58,23 @@ export class RegisterComponent implements OnInit {
         if (!this.form.valid) {
             return
         }
+        this.sharedService.showUiCover()
         this.loginService.register(this.form.value).subscribe({
             next: data => {
+                this.sharedService.scrollTop()
                 if (data.success) {
                     this.isMessage = true
-                    this.sharedService.sleep(2000).then(() => {
-                        location.href = '/'
-                    })
+                } else {
+                    this.isError = true
                 }
+                this.sharedService.hideUiCover()
             },
             error: err => {
-                //this.openErrorModal(err)
+                this.sharedService.scrollTop()
+                this.isError = true
+                this.sharedService.hideUiCover()
             }
         });
-    }
-
-    openErrorModal(err: any) {
-        console.log('openErrorModal')
-        //console.log(err)
-        this.modalError = new window.bootstrap.Modal(document.getElementById('errorModal'))
-        let errorText = document.querySelector('.error-text')
-        if (errorText) {
-            errorText.innerHTML = ''
-            errorText.innerHTML = this.sharedService.errorHandler(err)
-            this.modalError.toggle()
-        }
     }
 
 }

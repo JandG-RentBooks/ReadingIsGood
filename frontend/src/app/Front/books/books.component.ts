@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {BooksService} from "../../Services/Front/books.service";
 import {environment} from '../../../environments/environment';
 import {AuthService} from "../../helper/auth.service";
+import {ActivatedRoute} from "@angular/router";
 
 const API_URL = environment.apiUrl;
 const IMAGE_URL = environment.imageUrl;
@@ -23,7 +24,7 @@ export class BooksComponent {
     params: { url: string, pages: number[], perPage: number, searchValue: string, category: any } = {
         url: `${API_URL}books?page=1`,
         pages: [5, 10, 20, 50],
-        perPage: 10,
+        perPage: 20,
         searchValue: '',
         category: '',
     }
@@ -32,7 +33,15 @@ export class BooksComponent {
     showDetails = false
     selectedItem: any
 
-    constructor(private bookService: BooksService, private authService: AuthService) {
+    constructor(private activatedRoute: ActivatedRoute, private bookService: BooksService, private authService: AuthService) {
+        let title
+        this.activatedRoute.paramMap.subscribe((params) => {
+            title = params.get('title')
+        })
+        if (title) {
+            this.params.searchValue = title
+            this.isSearch = true
+        }
         this.index()
         this.getCategories()
     }

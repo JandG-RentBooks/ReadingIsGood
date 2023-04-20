@@ -231,7 +231,7 @@ class ProfileController extends Controller
     public function updateActiveSubscription(Request $request)
     {
         $user = User::find(auth()->user()->id);
-        $user->subscription_type_id  = $request->input('subscription_type_id');
+        $user->subscription_type_id = $request->input('subscription_type_id');
         $user->save();
 
         return response()->json(['success' => true], 200);
@@ -244,10 +244,15 @@ class ProfileController extends Controller
     public function getLendingHistory(Request $request)
     {
         $lendings = Lending::with('books')
+            ->with('books.publisher')
+            ->with('books.authors')
+            ->with('user')
+            ->with('user.subscription_type')
+            ->with('user.active_shipping_address')
             ->where([
                 ['user_id', auth()->user()->id],
-                ['state', '=', 3],
-            ])->first();
+                ['state', '=', 4],
+            ])->orderByDesc('id')->get();
 
         return response()->json($lendings, 200);
     }
@@ -259,12 +264,31 @@ class ProfileController extends Controller
     public function getLending(Request $request)
     {
         $lending = Lending::with('books')
+            ->with('books.publisher')
+            ->with('books.authors')
+            ->with('user')
+            ->with('user.subscription_type')
+            ->with('user.active_shipping_address')
             ->where([
                 ['user_id', auth()->user()->id],
-                ['state', '=', 2],
-            ])->get();
+                ['state', '=', 3],
+            ])->first();
 
         return response()->json($lending, 200);
     }
 
+    public function dataCheck(Request $request)
+    {
+        $query = User::query();
+        $query = $query->where('id', auth()->user()->id);
+        $query = $query->with('wishlist');
+        $user = $query->first();
+
+        return response()->json(
+            [
+                'user' => $user,
+                'last_payment_date' => $user->last_payment_date >= now()->subMonth()->subDays(5),
+            ], 200
+        );
+    }
 }

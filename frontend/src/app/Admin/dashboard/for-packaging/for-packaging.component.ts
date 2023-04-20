@@ -18,6 +18,7 @@ export class ForPackagingComponent {
     stickyFooter: any
     showWorkPanel = false
     newLendingCreatedSuccess = false
+    isDone = false
 
     links: any = []
     total: number = 0
@@ -52,6 +53,7 @@ export class ForPackagingComponent {
                 this.mainCollection = data.items.data
                 this.links = data.pagination.links
                 this.total = data.pagination.total
+                this.isDone = true
             },
             error: err => {
                 console.log(err)

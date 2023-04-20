@@ -34,6 +34,8 @@ return new class extends Migration
 
             $table->boolean('is_active')->default(1);
 
+            $table->boolean('is_active_lending')->default(0);
+
             $table->softDeletes();
 
             $table->rememberToken();

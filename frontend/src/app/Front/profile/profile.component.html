@@ -12,6 +12,13 @@
                 <button (click)="setVisibility('showData', $event)" type="button" class="list-group-item list-group-item-action">Személyes adataim</button>
                 <button (click)="setVisibility('showAddresses', $event)" type="button" class="list-group-item list-group-item-action">Szállítási címek</button>
             </div>
+
+            <div *ngIf="warnings.length && visibilityOptions.showWishList" class="__warnings mt-3 p-3 pt-0">
+                <div class="__header"><i class="bi bi-exclamation-triangle-fill"></i></div>
+                <ul class="p-0 m-0">
+                    <li *ngFor="let warn of warnings">{{warn}}</li>
+                </ul>
+            </div>
         </div>
         <div class="action-container col-lg-9">
             <app-wish-list *ngIf="visibilityOptions.showWishList"></app-wish-list>

@@ -20,7 +20,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #455A64;
+    background-color: #455A64;
+    background-image: url('../../assets/images/logo-v.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .sidebar-sticky {
@@ -29,7 +33,7 @@
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
 
-.sidebar .nav-item{
+.sidebar .nav-item {
     width: 100%;
     padding: 0 1px 0 15px;
     display: flex;
@@ -49,12 +53,15 @@
     .icon-dashboard {
         background-image: url("../../assets/images/sidebar/dashboard.svg");
     }
+
     .icon-books {
         background-image: url("../../assets/images/sidebar/books.svg");
     }
+
     .icon-authors {
         background-image: url("../../assets/images/sidebar/author.svg");
     }
+
     .icon-publishers {
         background-image: url("../../assets/images/sidebar/publishers.svg");
     }
@@ -62,18 +69,27 @@
     .icon-categories {
         background-image: url("../../assets/images/sidebar/categories.svg");
     }
+
     .icon-cover-types {
         background-image: url("../../assets/images/sidebar/cover-types.svg");
     }
+
     .icon-labels {
         background-image: url("../../assets/images/sidebar/labels.svg");
     }
+
     .icon-users {
         background-image: url("../../assets/images/sidebar/users.svg");
     }
+
     .icon-images {
         background-image: url("../../assets/images/sidebar/images.svg");
     }
+
+    .icon-money {
+        background-image: url("../../assets/images/sidebar/money.svg");
+    }
+
     .icon-system-settings {
         background-image: url("../../assets/images/sidebar/settings.svg");
     }

@@ -3,6 +3,12 @@
 .mat-mdc-menu-panel.mat-mdc-menu-panel {
     max-width: 680px !important;
 }
+@media (max-width: 576px) {
+    .mat-mdc-menu-panel.mat-mdc-menu-panel {
+        max-width: 350px !important;
+        width: 100% !important;
+    }
+}
 .book-cat-list {
     ._cat {
         font-weight: bold;

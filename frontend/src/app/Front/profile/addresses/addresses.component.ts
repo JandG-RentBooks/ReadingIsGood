@@ -1,8 +1,5 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {StorageService} from "../../../Services/storage.service";
-import {AuthService} from "../../../helper/auth.service";
-import {Router} from "@angular/router";
 import {SharedService} from "../../../Services/Admin/shared.service";
 import {ProfileService} from "../../../Services/Front/profile.service";
 

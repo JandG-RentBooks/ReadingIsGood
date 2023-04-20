@@ -1,7 +1,7 @@
 <!--Admin fejléc-->
 <span *ngIf="showAdminMenu">
     <header class="navbar admin-header">
-      <a class="navbar-brand col-3 col-lg-2 me-0 px-3 fs-6" href="#">*****</a>
+      <a class="navbar-brand col-3 col-lg-2 me-0 px-3 fs-6" href="#"></a>
       <div class="col-9 col-lg-10 d-flex position-relative ms-0">
           <button (click)="openSidebar()" class="navbar-toggler position-absolute d-md-none collapsed ms-5"
                   type="button" data-bs-toggle="collapse"
@@ -35,14 +35,28 @@
 <span *ngIf="!showAdminMenu">
     <header class="front-header">
         <div class="container front-header-container">
-            <div class="__logo d-none d-md-block me-5"></div>
+            <div class="__logo d-none d-md-block me-3"></div>
             <div class="__logo-md d-block d-md-none"></div>
+            <div class="__logo-md-line d-block d-md-none"></div>
             <div class="__menu">
-                <div *ngIf="showLoginLink" class="__menu-top navbar">
-                    <a routerLink="/login" class="me-3">Bejelentkezés</a>
-                    <a routerLink="/register">Regisztráció</a>
+                <div *ngIf="showLoginLink" class="__menu-top justify-content-md-end">
+                    <button class="navbar-toggler d-block d-md-none" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false"
+                            aria-label="">
+                            <span class="navbar-toggler-icon text-white d-flex align-items-center"><i class="bi bi-list"></i></span>
+                        </button>
+                    <span>
+                        <a routerLink="/login" class="me-3">Bejelentkezés</a>
+                        <a routerLink="/register">Regisztráció</a>
+                    </span>
+
                 </div>
-                <div *ngIf="!showLoginLink" class="__menu-top text-end">
+                <div *ngIf="!showLoginLink" class="__menu-top justify-content-md-end">
+                        <button class="navbar-toggler d-block d-md-none" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false"
+                                aria-label="">
+                            <span class="navbar-toggler-icon text-white d-flex align-items-center"><i class="bi bi-list"></i></span>
+                        </button>
                     <a href="#"
                        class="d-flex align-items-center text-decoration-none dropdown-toggle"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -50,6 +64,9 @@
                         <span class="d-block me-2">{{userName}}</span>
                     </a>
                         <ul class="dropdown-menu mt-3">
+                            <li *ngIf="showProfileLink" class="__header w-100 p-0"><i class="bi bi-person-circle"></i></li>
+                            <li *ngIf="showProfileLink" class="__email px-2">{{email}}</li>
+                            <li *ngIf="showProfileLink"><hr class="dropdown-divider"></li>
                             <li *ngIf="showAdminLink"><a class="dropdown-item" href="/admin/dashboard">Admin felület</a></li>
                             <li *ngIf="showAdminLink"><hr class="dropdown-divider"></li>
                             <li *ngIf="showProfileLink"><a class="dropdown-item" routerLink="profile">Adataim</a></li>
@@ -59,11 +76,7 @@
                 </div>
                 <div class="__menu-bottom">
                     <nav class="navbar navbar-expand-md bg-transparent" aria-label="">
-                          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                  data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false"
-                                  aria-label="">
-                            <span class="navbar-toggler-icon"></span>
-                          </button>
+
                           <div class="collapse navbar-collapse w-100" id="navbarMain">
                                 <ul class="navbar-nav mb-2 mb-md-0 w-100">
                                       <li class="nav-item">

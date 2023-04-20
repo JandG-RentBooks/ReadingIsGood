@@ -27,7 +27,6 @@ export class FrontBookDetailsComponent {
     }
 
     ngOnInit(): void {
-        console.log(this.selectedItem)
         this.imagePath = this.selectedItem.file_path
         this.labels = this.selectedItem._labels
         this.categories = this.selectedItem._categories

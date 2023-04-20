@@ -16,7 +16,7 @@ export class SubscriptionInformationComponent {
     userData: any = []
     systemSettings: any = []
 
-    constructor(private profileService: ProfileService) {}
+    constructor(private profileService: ProfileService, private sharedService: SharedService) {}
 
     ngOnInit(): void {
         this.getSubscriptions()
@@ -38,14 +38,16 @@ export class SubscriptionInformationComponent {
     }
 
     setActive(id: number): void {
+        this.sharedService.showUiCover()
         this.profileService.updateActiveSubscription(id).subscribe({
             next: data => {
+                this.sharedService.hideUiCover()
                 if(data.success){
                     this.getSubscriptions()
                 }
             },
             error: error => {
-
+                this.sharedService.hideUiCover()
             }
         })
     }

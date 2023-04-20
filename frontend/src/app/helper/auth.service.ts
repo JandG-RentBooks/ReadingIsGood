@@ -18,6 +18,10 @@ export class AuthService {
     return this.storageService.getUser().name
   }
 
+  getEmail(): any {
+    return this.storageService.getUser().email
+  }
+
   isUser(): any {
     return this.storageService.getUser().roles.includes('user')
   }

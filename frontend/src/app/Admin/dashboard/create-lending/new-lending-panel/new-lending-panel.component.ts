@@ -51,6 +51,31 @@ export class NewLendingPanelComponent {
         })
     }
 
+    firstStep(): void {
+        this.sharedService.showPostCover()
+        this.wishlistStep = true
+        this.sharedService.hidePostCover()
+    }
+
+    addBook(item: any): void | boolean {
+        if (this.addedBook === this.maxBook) {
+            return false
+        }
+        this.wishlistSet.push(item)
+        this.wishlist = this.wishlist.filter((obj: any) => obj.wishlist_id != item.wishlist_id)
+        this.addedBook++
+    }
+
+    removeBook(item: any): void {
+        this.wishlist.push(item)
+        this.wishlistSet = this.wishlistSet.filter((obj: any) => obj.wishlist_id != item.wishlist_id)
+        this.addedBook--
+    }
+
+    done(): void {
+        this.storeLending()
+    }
+
     storeLending(): void {
         this.sharedService.showPostCover()
         this.dashboardService.storeLending({user_id: this.selectedItem.id}).subscribe({
@@ -58,8 +83,7 @@ export class NewLendingPanelComponent {
                 console.log(data)
                 if (data.success) {
                     this.createdLendingId = data.id
-                    this.wishlistStep = true
-                    this.sharedService.hidePostCover()
+                    this.addBooksToLending()
                 }
             },
             error: err => {
@@ -69,51 +93,26 @@ export class NewLendingPanelComponent {
         })
     }
 
-    addBookToLending(item: any): void | boolean {
-        if(this.addedBook === this.maxBook){
-            return false
-        }
-        this.dashboardService.addBookToLending({lending_id: this.createdLendingId, book_id: item.id}).subscribe({
-            next: data => {
-                console.log(data)
-                if (data.success) {
-                    this.wishlistSet.push(item)
-                    this.wishlist = this.wishlist.filter((obj: any) => obj.wishlist_id != item.wishlist_id)
-                    this.addedBook++
-                }
-            },
-            error: err => {
-                console.log(err)
-            }
-        })
-    }
-
-    removeBook(item: any): void {
-        this.dashboardService.removeBook({lending_id: this.createdLendingId, book_id: item.id}).subscribe({
-            next: data => {
-                console.log(data)
-                if (data.success) {
-                    this.wishlist.push(item)
-                    this.wishlistSet = this.wishlistSet.filter((obj: any) => obj.wishlist_id != item.wishlist_id)
-                    this.addedBook--
-                }
-            },
-            error: err => {
-                console.log(err)
-            }
-        })
-    }
-
-    done(): void {
+    addBooksToLending(): void | boolean {
         this.sharedService.showPostCover()
-        this.removeBooksFromUserWishlist()
-    }
 
-    removeBooksFromUserWishlist(): void {
         const bookIdSet: number[] = []
         this.wishlistSet.forEach((item: any) => {
             bookIdSet.push(item.id)
         })
+        console.log(bookIdSet)
+        this.dashboardService.addBooksToLending({lending_id: this.createdLendingId, books: bookIdSet}).subscribe({
+            next: data => {
+                console.log(data)
+                this.removeBooksFromUserWishlist(bookIdSet)
+            },
+            error: err => {
+                console.log(err)
+            }
+        })
+    }
+
+    removeBooksFromUserWishlist(bookIdSet: any): void {
         this.dashboardService.removeBooksFromUserWishlist({user_id: this.selectedItem.id, books: bookIdSet}).subscribe({
             next: data => {
                 console.log(data)
@@ -123,28 +122,20 @@ export class NewLendingPanelComponent {
             },
             error: err => {
                 console.log(err)
+                this.sharedService.hidePostCover()
             }
         })
     }
 
     updateLendingState(s: number): void {
-        this.dashboardService.updateLendingState({lending_id: this.createdLendingId, state: s}).subscribe({
-            next: data => {
-                console.log(data)
-                if (data.success) {
-                    if(s === 1){
-                        this.doneStep = true
-                    }
-                    if(s === 2){
-                        this.sharedService.hidePostCover()
-                        this.saveEventEmitter.emit(true)
-                    }
-                }
-            },
-            error: err => {
-                console.log(err)
-            }
-        })
+        if (s === 1) {
+            this.doneStep = true
+            return
+        }
+        if (s === 2) {
+            this.sharedService.hidePostCover()
+            this.saveEventEmitter.emit(true)
+        }
     }
 
 

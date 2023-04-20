@@ -180,6 +180,103 @@ Covers
         }
     }
 
+    .dashboard-details-row {
+        width: 100%;
+        height: auto;
+
+        .inner {
+            width: 100%;
+            height: auto;
+            margin-top: 18px;
+            border-radius: 10px;
+            background-color: white;
+            border: 1px solid #eceff1;
+            position: relative;
+
+            .header {
+                height: 30px;
+                padding: 0;
+                display: flex;
+                justify-content: space-between;
+
+                .title {
+                    height: 30px;
+                    line-height: 30px !important;
+                    width: auto;
+                    background-color: #0091EA;
+                    color: white;
+                    font-size: 13px;
+                    font-weight: 500;
+                    padding: 0 20px;
+                    border-top-left-radius: 10px;
+                    border-bottom-right-radius: 10px;
+                    display: flex;
+                    align-items: center;
+
+                    .details-icon {
+                        width: 18px !important;
+                        height: 18px !important;
+                        background-color: transparent;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        background-size: 18px 18px;
+                        background-image: url('../assets/images/icons-V2/header-icons/edit-white.svg');
+                        cursor: pointer;
+                        margin-left: 12px;
+                    }
+                }
+
+                .close {
+                    height: 30px;
+                    width: 30px;
+                    background-color: transparent;
+                    border-bottom-left-radius: 5px;
+                    background-image: url('../assets/images/icons-V2/header-icons/close-blue.svg');
+                    background-position: left bottom;
+                    background-repeat: no-repeat;
+                    background-size: 20px 20px;
+                    cursor: pointer;
+                }
+            }
+
+            .content {
+                padding: 20px;
+
+                .__title {
+                    font-size: 1.1em;
+                    font-weight: bold;
+                    margin-bottom: 12px;
+                    color: #78909c;
+                }
+
+                table {
+                    color: #444 !important;
+                }
+
+                .form-group-name {
+                    display: flex;
+                    align-items: end;
+                    justify-content: space-between;
+
+                    .__input {
+                        flex: 1;
+                    }
+
+                    .btn-more {
+                        height: 20px;
+                        width: 20px;
+                        margin-left: 15px;
+                        background-color: transparent;
+                        background-image: url('../assets/images/icons-V2/functions/new.svg');
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: 20px 20px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
     .dashboard-details {
         position: absolute;
         z-index: 2000000;
@@ -714,6 +811,17 @@ Covers
                     font-weight: bold;
                     letter-spacing: 1px;
                 }
+            }
+
+            .__title-active {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #607d8b;
+                font-size: 1.3em;
+                font-weight: bold;
+                letter-spacing: 1px;
             }
 
             .stat-cards {
@@ -1430,6 +1538,109 @@ Toasts
             flex-direction: column;
             align-items: stretch;
             justify-content: flex-start;
+        }
+
+        .form-group-name {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+
+            .__input {
+                flex: 1;
+            }
+
+            .btn-more {
+                height: 20px;
+                width: 20px;
+                margin-left: 15px;
+                background-color: transparent;
+                background-image: url('../assets/images/icons-V2/functions/new.svg');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: 20px 20px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+.received-packages-work-panel {
+    width: 100%;
+    height: auto;
+    padding: 0;
+
+    .header {
+        height: 30px;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+
+        .title {
+            height: 30px;
+            line-height: 30px !important;
+            width: auto;
+            background-color: #0091EA;
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 0 20px;
+            border-top-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            display: flex;
+            align-items: center;
+
+            .details-icon {
+                width: 18px !important;
+                height: 18px !important;
+                background-color: transparent;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 18px 18px;
+                background-image: url('../assets/images/icons-V2/header-icons/edit-white.svg');
+                cursor: pointer;
+                margin-left: 12px;
+            }
+        }
+
+        .close {
+            height: 30px;
+            width: 30px;
+            background-color: transparent;
+            border-bottom-left-radius: 5px;
+            background-image: url('../assets/images/icons-V2/header-icons/close-blue.svg');
+            background-position: left bottom;
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+            cursor: pointer;
+        }
+    }
+
+    .content {
+        .__title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #78909c;
+        }
+
+        table {
+            color: #444 !important;
+        }
+
+        .__checked {
+            font-size: 2em;
+        }
+
+        .__qr {
+            width: auto;
+            padding: 12px;
+            border: 1px dashed #ccc;
+        }
+
+        .__is-done-button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .form-group-name {

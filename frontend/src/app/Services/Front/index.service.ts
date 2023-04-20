@@ -43,8 +43,6 @@ export class IndexService {
         );
     }
 
-
-
     getCompany(): Observable<any> {
         return this.http.get(
             API_URL + 'company',
@@ -78,5 +76,14 @@ export class IndexService {
             this.httpOptions
         );
     }
+
+    getContactData(): Observable<any> {
+        this.httpOptions.params = {}
+        return this.http.get(
+            API_URL + 'contact-data',
+            this.httpOptions
+        );
+    }
+
 
 }

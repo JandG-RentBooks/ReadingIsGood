@@ -15,8 +15,6 @@ export class AppComponent implements OnInit {
     currentRoute: string | undefined;
 
     constructor(private authService: AuthService, private router: Router) {
-        console.log('this.route.url')
-        console.log(this.router.url)
     }
 
     ngOnInit(): void {

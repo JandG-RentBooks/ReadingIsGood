@@ -18,7 +18,7 @@ export class ReferencesComponent {
     params: { url: string, pages: number[], perPage: number} = {
         url: `${API_URL}references?page=1`,
         pages: [5, 10, 20, 50],
-        perPage: 10,
+        perPage: 50,
     }
 
     showNewComment = false

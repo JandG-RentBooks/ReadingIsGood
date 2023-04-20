@@ -1,0 +1,16 @@
+.__warnings {
+    background: #eceff1;
+    font-size: 18px;
+    border-radius: 5px;
+    .__header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        color: #ffa726;
+        font-size: 2.5em;
+    }
+    li {
+        padding: 6px 0;
+    }
+}

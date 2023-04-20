@@ -46,6 +46,17 @@
         }
     }
 }
+
+@media screen and (max-width: 992px) {
+    #top {
+        height: auto;
+        .register {
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+    }
+}
+
 #lastRented {
     padding: 30px 0;
     width: 100%;
@@ -62,6 +73,9 @@
     width: 100%;
     height: auto;
     background-color: #a94428;
+    .p-carousel-testimonials {
+        max-width: 100%;
+    }
     .p-carousel-items-content {
     }
     .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {

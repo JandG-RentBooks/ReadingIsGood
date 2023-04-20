@@ -1,5 +1,7 @@
 <div class="container front-container d-flex align-items-center justify-content-center">
-    <div class="card card-container-login m-5 p-3">
+    <div *ngIf="isMessage" class="__message">Köszönjük! A megadott email címre küldtünk egy levelet, hogy véglegesíthesse a regisztrációt.</div>
+    <div *ngIf="isError" class="__message">A regisztráció során nem várt hiba történt. Kérjük próbálja később!</div>
+    <div class="card card-container-login card-register m-5 p-3">
         <div class="card-header">Regisztráció</div>
         <div class="card-body">
             <form [formGroup]="form" class="d-flex flex-column" (ngSubmit)="onSubmit()">
@@ -62,7 +64,6 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <div *ngIf="isMessage" class="__message">Sikeres regisztráció</div>
                 <button type="submit" class="btn-login mt-3">
                     Regisztráció
                 </button>

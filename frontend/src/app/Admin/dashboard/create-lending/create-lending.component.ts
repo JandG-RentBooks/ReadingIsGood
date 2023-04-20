@@ -17,6 +17,7 @@ export class CreateLendingComponent {
     stickyFooter: any
     showNewPanel = false
     newLendingCreatedSuccess = false
+    isDone = false
 
     links: any = []
     total: number = 0
@@ -51,6 +52,7 @@ export class CreateLendingComponent {
                 this.mainCollection = data.items.data
                 this.links = data.pagination.links
                 this.total = data.pagination.total
+                this.isDone = true
             },
             error: err => {
                 console.log(err)

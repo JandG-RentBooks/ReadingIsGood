@@ -1,1 +1,70 @@
-<p>received-packages works!</p>
+<div *ngIf="showWorkPanel" class="new-lending-panel">
+    <app-recaived-packages-details [selectedItem]="selectedItem"
+                               (saveEventEmitter)="packageIsDone($event)"
+                               (closeEventEmitter)="closeWorkPanel($event)"
+    ></app-recaived-packages-details>
+</div>
+<div class="row" id="searchPanel">
+    <div class="col-md-6">
+        <mat-accordion class="example-headers-align">
+            <mat-expansion-panel #searchQrPanel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-toolbar class="bg-transparent" color="primary">
+                            <mat-icon color="accent" class="me-2">settings_overscan</mat-icon>
+                            <span>Kölcsönzési tétel keresése QR kód beolvasásával</span>
+                        </mat-toolbar>
+                    </mat-panel-title>
+
+                </mat-expansion-panel-header>
+                <div class="__file-upload d-flex align-items-center">
+                    <div class="dashboard-search">
+                        <input id="QRInput" [(ngModel)]="searchValue" (keyup.enter)="searchByScan()" type="text" autofocus maxlength="12">
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+    <div class="col-md-6">
+        <mat-accordion class="example-headers-align">
+            <mat-expansion-panel #searchPanel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-toolbar class="bg-transparent" color="primary">
+                            <mat-icon color="accent" class="me-2">search</mat-icon>
+                            <span>Kölcsönzési tétel keresése szállítási azonosító megadásával</span>
+                        </mat-toolbar>
+                    </mat-panel-title>
+
+                </mat-expansion-panel-header>
+                <div class="__file-upload d-flex align-items-center">
+                    <div class="dashboard-search">
+                        <span (click)="search()" class="btn-search d-inline-block"></span>
+                        <input id="typedInput" [(ngModel)]="searchValueByType" (keyup.enter)="search()" type="text" placeholder="Szállítási azonosító">
+                    </div>
+                    <span class="d-flex align-items-center ms-3">
+                    <button type="button"
+                            [disabled]="searchValueByType.length !== 12"
+                            (click)="search()"
+                            class="ms-3 px-2 text-white"
+                            mat-raised-button color="primary">Keresés</button>
+            </span>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>
+
+<div *ngIf="isSearch && showNotFoundMessage" class="_alert d-flex w-100 align-items-center justify-content-between p-3 mt-5">
+    Nincs megjeleníthető adat. <mat-icon color="accent" role="button" (click)="showNotFoundMessage = false">close</mat-icon>
+</div>
+
+<div *ngIf="isSearch && showSuccessMessage" class="_alert d-flex w-100 align-items-center justify-content-between p-3 mt-5">
+    Sikeres visszavételezés. <mat-icon color="accent" role="button" (click)="showSuccessMessage = false">close</mat-icon>
+</div>
+
+<div *ngIf="isSearch && showCloseErrorMessage" class="_alert d-flex w-100 align-items-center justify-content-between p-3 mt-5">
+    A visszavételezés során nem várt hiba történt. <mat-icon color="accent" role="button" (click)="showCloseErrorMessage = false">close</mat-icon>
+</div>
+
+

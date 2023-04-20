@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BankTransferMail;
+use App\Mail\UserVerifyMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -20,6 +22,21 @@ class MailController extends Controller
         ];
 
         Mail::to($user->email)->send(new NewLendingMail($mailData));
+
+        return response()->json(['success' => true], 200);
+    }
+
+    public function bankTransfer(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $user = User::find($request->get('user_id'));
+
+        $mailData = [
+            'title' => 'Kedves ' . $user->name . '!',
+            'body' => 'Szeretnénk tájékoztatni, hogy a mai napon az banki átutalásod összegét jóváírtuk.',
+            'payment_id' => 'Fizetési azonosító: ' . $user->payment_id,
+        ];
+
+        Mail::to($user->email)->send(new BankTransferMail($mailData));
 
         return response()->json(['success' => true], 200);
     }

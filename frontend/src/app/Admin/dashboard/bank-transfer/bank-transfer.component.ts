@@ -45,6 +45,7 @@ export class BankTransferComponent {
     user: any
     selectedDate: any = null
     showSuccessMessage = false
+    isConfirmed = false
 
     constructor(
         private dashboardService: DashboardService,
@@ -88,11 +89,28 @@ export class BankTransferComponent {
         this.dashboardService.updateLastPaymentDate({userId: this.user.id, date: date}).subscribe({
             next: data => {
                 console.log(data)
-                if(data.success){
-                    this.selectedDate = null
+                if (data.success) {
+                    this.sendMail()
+                }
+            },
+            error: err => {
+                console.log(err)
+                this.sharedService.hidePostCover()
+            }
+        })
+    }
+
+    sendMail(): void {
+        this.dashboardService.sendBankTransferEmail({user_id: this.user.id}).subscribe({
+            next: data => {
+                console.log(data)
+                if (data.success) {
                     this.getUserByPaymentId()
                     this.sharedService.hidePostCover()
                     this.showSuccessMessage = true
+                    this.selectedDate = null
+                    this.searchValue = ''
+                    this.isConfirmed = false
                 }
             },
             error: err => {

@@ -2,8 +2,8 @@
     <div class="inner justify-content-between">
         <span class="action d-inline-flex align-items-center"></span>
         <span class="d-inline-block d-flex justify-content-end align-items-center pe-5">
-                <mat-icon matBadge="15" matBadgeColor="warn" class="mt-2 me-4">card_giftcard</mat-icon>
-                <mat-icon matBadge="15" matBadgeColor="warn" class="mt-2">feedback</mat-icon>
+                <mat-icon (click)="setPage('showForPackagingPage')" [matBadge]="forPackagesNum" matBadgeColor="warn" class="mt-2 me-4" role="button">card_giftcard</mat-icon>
+                <mat-icon (click)="setPage('showTestimonialsPage')" [matBadge]="testimonialsCommentNum" matBadgeColor="warn" class="mt-2" role="button">feedback</mat-icon>
         </span>
     </div>
     <div class="sticky-filter-cover d-none"></div>
@@ -29,6 +29,7 @@
                     </button>
 
                     <button (click)="setVisibility('showForPackagingPage', $event)"
+                            #showForPackagingPage
                             type="button"
                             class="list-group-item list-group-item-action"
                             aria-current="true">
@@ -50,6 +51,7 @@
                     </button>
 
                     <button (click)="setVisibility('showTestimonialsPage', $event)"
+                            #showTestimonialsPage
                             type="button"
                             class="list-group-item list-group-item-action"
                             aria-current="true">
@@ -79,8 +81,9 @@
                 </div>
 
                 <app-stat-cards *ngIf="visibilityOptions.showFirsPage"></app-stat-cards>
-                <div class="px-3">
-                    <app-active-lendings *ngIf="visibilityOptions.showFirsPage"></app-active-lendings>
+                <div *ngIf="visibilityOptions.showFirsPage" class="px-3 mt-4">
+                    <div class="__title-active">Aktív kölcsönzések</div>
+                    <app-active-lendings></app-active-lendings>
                 </div>
 
                 <div class="work-container p-4">

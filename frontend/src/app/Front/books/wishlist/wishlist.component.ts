@@ -33,10 +33,8 @@ export class WishlistComponent {
         this.booksService.initWishList(this.bookId).subscribe({
             next: data => {
                 this.active = data.isInWishlist
-                this.sharedService.hideUiCover()
             },
             error: error => {
-                this.sharedService.hideUiCover()
             }
         })
     }
@@ -47,6 +45,7 @@ export class WishlistComponent {
             next: data => {
                 console.log()
                 if (data.success) {
+                    this.sharedService.hideUiCover()
                     this.init()
                 }
             },

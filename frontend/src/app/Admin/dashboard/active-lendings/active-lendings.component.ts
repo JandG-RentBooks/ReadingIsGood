@@ -16,6 +16,7 @@ export class ActiveLendingsComponent {
     showDetailsComponent: boolean = false
     selectedItem: any = {id: null, name: ''}
     stickyFooter: any
+    isDone = false
 
     links: any = []
     total: number = 0
@@ -50,6 +51,7 @@ export class ActiveLendingsComponent {
                 this.mainCollection = data.items.data
                 this.links = data.pagination.links
                 this.total = data.pagination.total
+                this.isDone = true
             },
             error: err => {
                 console.log(err)
@@ -61,13 +63,13 @@ export class ActiveLendingsComponent {
         this.stickyFooter = document.querySelector('.sticky-footer')
         this.selectedItem = {id: id, name: name}
         this.sharedService.scrollTop()
-        this.sharedService.hideScrollbar()
+        //this.sharedService.hideScrollbar()
         this.showDetailsComponent = true
         this.stickyFooter.classList.add('d-none')
     }
 
     closeDetails(e: any): void {
-        this.sharedService.showScrollbar()
+        //this.sharedService.showScrollbar()
         this.showDetailsComponent = false
         this.selectedItem = {id: null, name: ''}
         if (this.stickyFooter.classList.contains('d-none')) {

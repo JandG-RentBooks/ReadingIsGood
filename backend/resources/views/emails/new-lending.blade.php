@@ -9,7 +9,7 @@
 <p>{{ $mailData['shipping_token'] }}</p>
 
 
-<p>Ez egy automatikusan küldött levél, nem kell válaszolnia.</p>
+<p>Ez egy automatikusan küldött levél, nem kell válaszolnod.</p>
 <p>Üdvözlettel: Reading is Good</p>
 </body>
 </html>

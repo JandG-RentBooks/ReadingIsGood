@@ -1,7 +1,14 @@
 <div class="container front-container d-flex align-items-center justify-content-center">
+    <div *ngIf="isMessage" class="__message">A megadott email címre küldtünk egy levelet.</div>
+    <div *ngIf="isError" class="__message">Az adatküldés során nem várt hiba történt. Kérjük próbálja később!</div>
+    <div *ngIf="isTokenError" class="__message">Érvénytelen, vagy lejárt token...</div>
+    <div *ngIf="isDone" class="__message">Az új jelszó beállítása sikeresen megtörtént.</div>
       <div class="card card-container-login m-5 p-3">
-          <div class="card-header">Bejelentkezés</div>
-          <div class="card-body">
+          <div *ngIf="isLoginForm" class="card-header">Bejelentkezés</div>
+          <div *ngIf="isPasswordResetForm" class="card-header">Elfelejtett jelszó</div>
+          <div *ngIf="isNewPasswordForm" class="card-header">Új jelszó beállítása</div>
+
+          <div *ngIf="isLoginForm" class="card-body">
               <form [formGroup]="form" class="d-flex flex-column" (ngSubmit)="onSubmit()">
                   <mat-form-field appearance="fill">
                       <mat-label>Email cím</mat-label>
@@ -21,6 +28,56 @@
                   </button>
               </form>
       </div>
+          <div *ngIf="isPasswordResetForm" class="card-body">
+              <form [formGroup]="formPasswordReset" class="d-flex flex-column" (ngSubmit)="onSubmitPasswordReset()">
+                  <mat-form-field appearance="fill">
+                      <mat-label>Email cím</mat-label>
+                      <input matInput formControlName="email" type="email">
+                      <mat-error *ngIf="formPasswordReset.controls['email'].hasError('required')">Az email cím megadása kötelező.</mat-error>
+                      <mat-error *ngIf="formPasswordReset.controls['email'].hasError('email')">Érvényes email cím megadása kötelező.</mat-error>
+                  </mat-form-field>
+
+                  <button type="submit" class="btn-login mt-3">
+                      Elküldés
+                  </button>
+              </form>
+      </div>
+          <div *ngIf="isNewPasswordForm" class="card-body">
+              <form [formGroup]="formNewPassword" class="d-flex flex-column" (ngSubmit)="onSubmitNewPassword()">
+                  <mat-form-field appearance="fill">
+                      <mat-label>Email cím</mat-label>
+                      <input matInput formControlName="email" type="email">
+                      <mat-error *ngIf="formNewPassword.controls['email'].hasError('required')">Az email cím megadása kötelező.</mat-error>
+                      <mat-error *ngIf="formNewPassword.controls['email'].hasError('email')">Érvényes email cím megadása kötelező.</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" class="mt-2">
+                      <mat-label>Jelszó</mat-label>
+                      <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+                      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                      <mat-error *ngIf="formNewPassword.controls['password'].hasError('required')">A jelszó megadása kötelező.</mat-error>
+                      <mat-error *ngIf="formNewPassword.controls['password'].hasError('minlength')">Az érvényes jelszó legalább 8 karakter.</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" class="mt-2">
+                      <mat-label>Jelszó megerősítése</mat-label>
+                      <input matInput formControlName="c_password" [type]="hide ? 'password' : 'text'">
+                      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                      <mat-error *ngIf="formNewPassword.controls['c_password'].hasError('required')">A jelszó ismételt megadása kötelező.</mat-error>
+                      <mat-error *ngIf="formNewPassword.controls['c_password'].hasError('minlength')">Az érvényes jelszó legalább 8 karakter.</mat-error>
+                  </mat-form-field>
+
+                  <button type="submit" class="btn-login mt-3">
+                      Jelszó beállítása
+                  </button>
+              </form>
+      </div>
+          <div *ngIf="isLoginForm" class="card-footer border-0 text-end"><span (click)="showPasswordReset()" role="button" class="text-danger">Elfelejtett jelszó</span></div>
+          <div *ngIf="isPasswordResetForm" class="card-footer border-0 text-end"><span (click)="showLogin()" role="button" class="text-primary">Bejelentkezés</span></div>
       </div>
 </div>
 <app-error-modal></app-error-modal>

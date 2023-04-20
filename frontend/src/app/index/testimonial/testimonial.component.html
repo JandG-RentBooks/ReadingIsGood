@@ -1,7 +1,7 @@
 <section id="testimonial">
     <div class="container">
         <div class="d-flex flex-column align-items-center mb-4 text-secondary">
-            <p-carousel [value]="testimonials" [numVisible]="4" [numScroll]="1" [circular]="true"
+            <p-carousel class="p-carousel-testimonials" [value]="testimonials" [numVisible]="4" [numScroll]="1" [circular]="true"
                         [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
                 <ng-template let-testimonial pTemplate="item">
                     <div class="carousel-item">

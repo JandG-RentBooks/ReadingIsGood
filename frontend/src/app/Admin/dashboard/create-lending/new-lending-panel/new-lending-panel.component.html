@@ -57,9 +57,9 @@
                     <span class="_control-item"><span class="_number"
                                                       [ngClass]="doneStep ? 'active' : ''">3</span></span>
                 </div>
-                <div *ngIf="createStep && !createdLendingId" class="step-container createStep">
+                <div *ngIf="createStep && !wishlistStep" class="step-container createStep">
                     <p class="text-center mb-3">Első lépés: új kölcsönzési tétel létrehozása:</p>
-                    <button mat-raised-button (click)="storeLending()" color="primary" class="text-white">
+                    <button mat-raised-button (click)="firstStep()" color="primary" class="text-white">
                         Kölcsönzés létrehozása
                     </button>
                 </div>
@@ -77,7 +77,7 @@
                                     <ul class="px-0">
                                         <li *ngFor="let row of wishlist" class="py-2 border-bottom d-flex align-items-center justify-content-between">
                                             {{row.title}}
-                                            <span (click)="addBookToLending(row)" class="list-add"></span>
+                                            <span (click)="addBook(row)" class="list-add"></span>
                                         </li>
                                     </ul>
                                 </mat-card-content>
@@ -102,8 +102,11 @@
                                 </mat-card-content>
                             </mat-card>
                         </div>
-                        <div *ngIf="maxBook === addedBook" class="col-12 text-center mt-3"><button mat-raised-button (click)="updateLendingState(1)" color="primary" class="text-white">Tovább
-                        </button></div>
+                        <div *ngIf="addedBook > 1" class="col-12 text-center mt-3">
+                            <button mat-raised-button (click)="updateLendingState(1)" color="primary" class="text-white">
+                                Tovább
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div *ngIf="doneStep" class="step-container doneStep">

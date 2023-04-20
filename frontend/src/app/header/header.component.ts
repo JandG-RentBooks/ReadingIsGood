@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit {
     showAdminLink = false
 
     userName: string = ''
+    email: string = ''
     currentRoute: string = ''
 
     roles: any = {
@@ -65,6 +66,7 @@ export class HeaderComponent implements OnInit {
             this.showProfileLink = this.authService.isUser()
 
             this.userName = this.authService.getUserName()
+            this.email = this.authService.getEmail()
             if (this.showAdminMenu) {
                 this.router.events.subscribe((event: any) => {
                     if (event instanceof NavigationEnd) {

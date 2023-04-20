@@ -1,5 +1,130 @@
 @import '../variables';
 
+.front-container {
+    min-height: calc(100vh - 270px);
+    //background-color: #ece5db;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    .row {
+        flex: 1;
+        display: flex;
+        align-items: stretch;
+
+        .list-group {
+            --bs-list-group-border-color: #b0bec5 !important;
+            border-radius: 5px;
+        }
+
+        .action-container {
+            border: 1px solid #b0bec5;
+            border-radius: 5px;
+            padding: 18px;
+            background-color: white;
+
+            .page-title {
+                color: #3e5064;
+                font-size: 18px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .card-container-login {
+        width: 100%;
+        max-width: 500px;
+        padding: 0 !important;
+
+        .card-header {
+            margin-bottom: 0;
+            color: white;
+            background-color: #3e5064;
+            border-bottom: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 0;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 1.1em
+        }
+
+        .btn-login {
+            appearance: none;
+            background-color: #3e5064;
+            border: 2px solid #3e5064;
+            border-radius: 6px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: normal;
+            margin: 0;
+            min-width: 0;
+            outline: none;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            width: 100%;
+            will-change: transform;
+        }
+
+        .btn-login:disabled {
+            pointer-events: none;
+        }
+
+        .btn-login:hover {
+            box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+            transform: translateY(-2px);
+        }
+
+        .btn-login:active {
+            box-shadow: none;
+            transform: translateY(0);
+        }
+    }
+    .card-register {
+        width: 100%;
+        max-width: 600px;
+    }
+}
+
+.page-container {
+    min-height: calc(100vh - 270px);
+    display: flex;
+    align-content: stretch;
+
+    .left-side {
+        width: 120px;
+        height: auto;
+        border-right: 1px solid #3e5064;
+    }
+    .page-content {
+        font-size: 1.2em;
+
+        h3 {
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+
+        h5 {
+            font-size: 1.3em;
+        }
+
+    }
+
+}
+
+/**
+Profile
+ */
 .list-group {
 
     .list-group-item {
@@ -114,7 +239,7 @@ Pagination
         margin: 0 5px 0;
         background-color: transparent;
         border: none;
-        font-size: 16px;
+        font-size: 14px;
         min-height: 40px;
     }
 
@@ -227,12 +352,14 @@ Pagination
     justify-content: center;
 
     .inner {
-        width: 650px;
+        max-width: 650px;
+        width: 96%;
         height: auto;
+        max-height: 90%;
         margin-top: 0;
         border-radius: 10px;
         background-color: white;
-        overflow: hidden;
+        overflow: auto;
         position: relative;
 
         .header {
@@ -245,7 +372,7 @@ Pagination
                 height: 30px;
                 line-height: 30px !important;
                 width: auto;
-                background-color: #0091EA;
+                background-color: #3e5064;
                 color: white;
                 font-size: 13px;
                 font-weight: 500;

@@ -43,7 +43,10 @@ export class AuthInterceptor implements HttpInterceptor {
             }
             if (error.status === 403) {
                 this.storageService.clean()
-                return this.dialog.open(ErrorAuthComponent)
+                return this.dialog.open(ErrorAuthComponent, {
+                    panelClass: 'dialog-error-admin',
+                    disableClose: true
+                })
             }
             if (error.status === 422)  {
                 return this.dialog.open(ErrorAdminComponent, {

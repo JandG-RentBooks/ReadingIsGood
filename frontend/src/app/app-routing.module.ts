@@ -29,6 +29,7 @@ import {HowLendingComponent} from "./Front/how-lending/how-lending.component";
 import {ReferencesComponent} from "./Front/references/references.component";
 import {SubscriptionComponent} from "./Front/subscription/subscription.component";
 import {SystemSettingsComponent} from "./Admin/system-settings/system-settings.component";
+import {UserVerifyComponent} from "./Front/user-verify/user-verify.component";
 
 const routes: Routes = [
     {
@@ -41,10 +42,22 @@ const routes: Routes = [
         component: LoginComponent
     },
     {
+        path: "login/:email/:token",
+        title: 'Új jelszó beállítása',
+        component: LoginComponent
+    },
+
+    {
         path: "register",
         title: 'Regisztráció',
         component: RegisterComponent
     },
+    {
+        path: "user-verify/:token",
+        title: 'Regisztráció-ellenőrzés',
+        component: UserVerifyComponent
+    },
+
     {
         path: "index",
         component: IndexComponent
@@ -53,6 +66,11 @@ const routes: Routes = [
         path: "books",
         component: BooksComponent
     },
+    {
+        path: "books/:title",
+        component: BooksComponent
+    },
+
     {
         path: "about-as",
         component: AboutAsComponent
@@ -99,7 +117,7 @@ const routes: Routes = [
         component: UserComponent,
         canActivate: [AuthGuard, AdminGuard]
     },
-        {
+    {
         path: "admin/system-settings",
         title: 'Rendszer beállítások',
         data: {breadcrumb: {alias: 'Rendszer beállítások'}},
