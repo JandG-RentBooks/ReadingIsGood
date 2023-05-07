@@ -21,14 +21,16 @@ export class BooksComponent {
     total: number = 0
     isSearch: boolean = false
     isCategorySearch: boolean = false
-    params: { url: string, pages: number[], perPage: number, searchValue: string, category: any } = {
+    params: { url: string, pages: number[], perPage: number, searchValue: string, category: any, userId: any } = {
         url: `${API_URL}books?page=1`,
         pages: [5, 10, 20, 50],
         perPage: 20,
         searchValue: '',
         category: '',
+        userId: null,
     }
 
+    wishList: number[] = []
     showWishList = false
     showDetails = false
     selectedItem: any
@@ -42,6 +44,7 @@ export class BooksComponent {
             this.params.searchValue = title
             this.isSearch = true
         }
+        this.params.userId = this.authService.getUserId()
         this.index()
         this.getCategories()
     }
@@ -94,6 +97,7 @@ export class BooksComponent {
                 this.mainCollection = data.items
                 this.links = data.pagination.links
                 this.total = data.pagination.total
+                this.wishList = data.wishList
             },
             error: err => {
             }

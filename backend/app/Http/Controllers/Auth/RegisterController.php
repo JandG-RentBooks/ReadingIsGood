@@ -146,6 +146,7 @@ class RegisterController extends BaseController
             if (Auth::user()->is_active) {
                 $user = Auth::user();
                 $success['token'] = $user->createToken('LandBooks')->plainTextToken;
+                $success['user_id'] = $user->id;
                 $success['name'] = $user->username;
                 $success['email'] = $user->email;
                 $success['roles'] = $user->roles->pluck('reference');

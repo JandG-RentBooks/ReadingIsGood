@@ -14,6 +14,9 @@ export class AuthService {
     return this.storageService.isLoggedIn()
   }
 
+  getUserId(): any {
+    return this.storageService.getUser().user_id
+  }
   getUserName(): any {
     return this.storageService.getUser().name
   }

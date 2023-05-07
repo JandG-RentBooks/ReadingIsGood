@@ -57,9 +57,12 @@ class BookController extends Controller
 
         $books = $query->paginate($this->getPageLength($request));
 
+        $wishlist = Wishlist::where('user_id', request()->input('userId'))->pluck('book_id')->toArray();
+
         $result = [
             'items' => [],
             'pagination' => $this->getPaginationForJson($books),
+            'wishList' => $wishlist
         ];
 
         foreach ($books as $book) {

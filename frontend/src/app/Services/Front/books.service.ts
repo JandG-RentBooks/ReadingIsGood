@@ -23,7 +23,7 @@ export class BooksService {
     }
 
     index(params: any): Observable<any> {
-        this.httpOptions.params = {page_length: params.perPage, search: params.searchValue, category: params.category}
+        this.httpOptions.params = {page_length: params.perPage, search: params.searchValue, category: params.category, userId: params.userId}
         return this.http.get(params.url,
             this.httpOptions
         );

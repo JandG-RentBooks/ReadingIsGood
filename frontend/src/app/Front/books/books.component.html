@@ -29,7 +29,7 @@
                     <div class="author">{{item.authors}}</div>
                 </div>
                 <div class="__footer p-2">
-                    <app-wishlist [bookId]="item.id" [show]="showWishList"></app-wishlist>
+                    <app-wishlist [bookId]="item.id" [show]="showWishList" [wishList]="wishList"></app-wishlist>
 
                     <span class="__available" matTooltip="Elérhető"
                           matTooltipPosition="above" matTooltipClass="">

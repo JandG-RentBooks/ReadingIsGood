@@ -73,6 +73,7 @@ export class BookService {
                 file_id: data.file_id,
                 authors: data.authors,
                 categories: data.categories,
+                mainCategory: data.mainCategory,
                 labels: data.labels,
                 is_new: data.is_new,
             },

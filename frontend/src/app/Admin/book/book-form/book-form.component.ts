@@ -169,7 +169,7 @@ export class BookFormComponent implements OnInit {
                 let tempAuthors: any = []
                 let tempLabels: any = []
                 let tempCategories: any = []
-                let mainCategory = null
+                let mainCategory_ = null
 
                 data.item.authors.forEach((item: any) => {
                     tempAuthors.push(item.id)
@@ -181,7 +181,7 @@ export class BookFormComponent implements OnInit {
                     if (item.parent_id !== null) {
                         tempCategories.push(item.id)
                     } else {
-                        mainCategory = item.id
+                        mainCategory_ = item.id
                     }
 
                 })
@@ -200,7 +200,7 @@ export class BookFormComponent implements OnInit {
                     cover_type_id: data.item.cover_type_id,
                     publisher_id: data.item.publisher_id,
                     file_id: data.item.file_id,
-                    mainCategory: mainCategory,
+                    mainCategory: mainCategory_
                 })
 
                 this.form.controls['authors'].setValue(tempAuthors)

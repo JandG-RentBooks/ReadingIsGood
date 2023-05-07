@@ -18,6 +18,9 @@ export class WishlistComponent {
     @Input()
     show: any
 
+    @Input()
+    wishList: any
+
     active = false
 
     constructor(private booksService: BooksService, private sharedService: SharedService) {
@@ -30,6 +33,10 @@ export class WishlistComponent {
     }
 
     init(): void {
+        this.active = this.wishList.includes(this.bookId)
+    }
+
+    refresh(): void { //refresh
         this.booksService.initWishList(this.bookId).subscribe({
             next: data => {
                 this.active = data.isInWishlist
@@ -46,7 +53,7 @@ export class WishlistComponent {
                 console.log()
                 if (data.success) {
                     this.sharedService.hideUiCover()
-                    this.init()
+                    this.refresh()
                 }
             },
             error: error => {
